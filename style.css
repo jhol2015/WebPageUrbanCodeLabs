@@ -1046,10 +1046,10 @@ a.contact-item:hover { background: var(--surface); border-color: var(--border-hi
 .nc {
   flex-shrink: 0;
   width: 260px;
-  height: 240px;
+  height: 200px;
   display: grid;
   grid-template-rows: auto 1fr auto;
-  padding: 16px 18px;
+  padding: 14px 16px;
   background: var(--bg);
   border: none;
   text-decoration: none;
@@ -1066,7 +1066,7 @@ a.contact-item:hover { background: var(--surface); border-color: var(--border-hi
   align-items: center;
   justify-content: space-between;
   gap: 8px;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 .nc-badge {
   font-size: 0.6rem;
@@ -1098,28 +1098,28 @@ a.contact-item:hover { background: var(--surface); border-color: var(--border-hi
 .nc-line {
   height: 2px; width: 20px;
   border-radius: 1px;
-  margin-bottom: 9px;
+  margin-bottom: 7px;
   flex-shrink: 0;
   filter: brightness(1.4);
 }
 .nc h3 {
   font-family: var(--font-head);
-  font-size: 0.87rem;
+  font-size: 0.85rem;
   font-weight: 700;
   color: #eee;
-  line-height: 1.3;
+  line-height: 1.28;
   letter-spacing: -0.015em;
-  margin-bottom: 6px;
+  margin-bottom: 5px;
   flex-shrink: 0;
   display: -webkit-box;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
 .nc p {
-  font-size: 0.74rem;
+  font-size: 0.72rem;
   color: #888;
-  line-height: 1.5;
+  line-height: 1.45;
   flex-shrink: 0;
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -1129,7 +1129,7 @@ a.contact-item:hover { background: var(--surface); border-color: var(--border-hi
 
 /* linha 3: rodapé fixo */
 .nc-cta {
-  padding-top: 10px;
+  padding-top: 8px;
   font-size: 0.6rem;
   font-weight: 700;
   letter-spacing: 0.09em;
