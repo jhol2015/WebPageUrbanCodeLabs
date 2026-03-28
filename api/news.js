@@ -8,7 +8,7 @@ const FEEDS = [
   { name: 'Hacker News',     color: '#f87171', url: 'https://hnrss.org/frontpage?count=10' },
 ];
 
-const ALLORIGINS = 'https://api.allorigins.win/get?url=';
+const PROXY = 'https://api.allorigins.win/get?url=';
 
 function decode(str) {
   return (str || '')
@@ -55,20 +55,17 @@ function extractItems(xml, limit = 6) {
 
 async function fetchFeed(feed) {
   const attempts = [
-    // tentativa 1: direto
     () => fetch(feed.url, {
       headers: { 'User-Agent': 'Mozilla/5.0 (compatible; UCLBot/1.0; +https://urbancodelabs.com.br)' },
       signal: AbortSignal.timeout(6000),
     }),
-    // tentativa 2: via allorigins proxy
-    () => fetch(ALLORIGINS + encodeURIComponent(feed.url), {
+    () => fetch(PROXY + encodeURIComponent(feed.url), {
       signal: AbortSignal.timeout(8000),
     }).then(async r => {
       const j = await r.json();
       return new Response(j.contents, { status: 200 });
     }),
   ];
-
   for (const attempt of attempts) {
     try {
       const res = await attempt();
@@ -90,7 +87,8 @@ export default async function handler() {
   return new Response(JSON.stringify({ ok: true, feeds, ts: Date.now() }), {
     headers: {
       'Content-Type': 'application/json',
-      'Cache-Control': 'public, s-maxage=1800, stale-while-revalidate=3600',
+      // CDN cache: 6h normal, revalida em background por até 24h
+      'Cache-Control': 'public, s-maxage=21600, stale-while-revalidate=86400',
       'Access-Control-Allow-Origin': 'same-origin',
     },
   });
