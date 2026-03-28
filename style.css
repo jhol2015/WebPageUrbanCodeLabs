@@ -1655,3 +1655,7 @@ a.contact-item:hover { background: var(--surface); border-color: var(--border-hi
 
 @media (max-width: 540px)  { [data-theme="light"] .services-grid { grid-template-columns: 1fr; } }
 @media (min-width: 541px) and (max-width: 899px) { [data-theme="light"] .services-grid { grid-template-columns: repeat(2,1fr); } }
+
+/* ícones maiores e mais presentes em ambos os temas */
+.service-icon svg { width: 26px; height: 26px; }
+[data-theme="light"] .service-icon svg { width: 26px; height: 26px; stroke-width: 1.4; }
