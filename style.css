@@ -1153,3 +1153,25 @@ a.contact-item:hover { background: var(--surface); border-color: var(--border-hi
 .news-filter-sep { color: var(--accent) !important; }
 .news-filter-br.active  { background: #00c97a !important; border-color: #00c97a !important; color: #fff !important; }
 .news-filter-sep.active { background: var(--accent) !important; color: #fff !important; }
+
+/* skeleton loading */
+@keyframes shimmer {
+  0%   { background-position: -600px 0; }
+  100% { background-position:  600px 0; }
+}
+.nc-skeleton {
+  pointer-events: none;
+}
+.sk-badge,
+.sk-line {
+  border-radius: 4px;
+  background: linear-gradient(90deg, var(--surface) 25%, var(--surface2) 50%, var(--surface) 75%);
+  background-size: 600px 100%;
+  animation: shimmer 1.4s infinite linear;
+}
+.sk-badge  { width: 72px; height: 18px; margin-bottom: 14px; }
+.sk-title  { height: 14px; margin-bottom: 7px; width: 100%; }
+.sk-desc   { height: 11px; margin-bottom: 5px; width: 100%; }
+.sk-w80    { width: 80%; }
+.sk-w60    { width: 60%; }
+.sk-w70    { width: 70%; }

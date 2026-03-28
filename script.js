@@ -156,8 +156,13 @@
     wrap  = document.getElementById('newsRiverWrap');
     var err = document.getElementById('newsErr');
     if (!river) return;
-    river.className = 'news-river is-loading';
-    river.innerHTML = '<div class="news-loading-state"><div class="news-spin"></div><span>Buscando notícias...</span></div>';
+    river.className = 'news-river';
+    // skeleton — 8 cards fantasma
+    var sk = '';
+    for (var s = 0; s < 8; s++) {
+      sk += '<div class="nc nc-skeleton"><div class="sk-badge"></div><div class="sk-line sk-title"></div><div class="sk-line sk-title sk-w80"></div><div class="sk-line sk-desc"></div><div class="sk-line sk-desc sk-w60"></div><div class="sk-line sk-desc sk-w70"></div></div><div class="nc-divider"></div>';
+    }
+    river.innerHTML = sk;
     if (err) err.style.display = 'none';
 
     fetch('/api/news')
