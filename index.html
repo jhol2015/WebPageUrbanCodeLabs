@@ -91,6 +91,7 @@
           <li><a href="#servicos">Serviços</a></li>
           <li><a href="#sobre">Sobre</a></li>
           <li><a href="#projetos">Projetos</a></li>
+          <li><a href="#noticias">Tech News</a></li>
           <li><a href="#contato" class="nav-cta">Fale Conosco</a></li>
         </ul>
         <button class="hamburger" id="hamburger" aria-label="Abrir menu" aria-expanded="false" aria-controls="mobileMenu">
@@ -101,6 +102,7 @@
         <a href="#servicos">Serviços</a>
         <a href="#sobre">Sobre</a>
         <a href="#projetos">Projetos</a>
+        <a href="#noticias">Tech News</a>
         <a href="#contato">Fale Conosco</a>
       </div>
     </nav>
@@ -418,6 +420,44 @@
       </div>
     </section>
 
+
+    <!-- ========== TECH NEWS ========== -->
+    <section class="section section-dark" id="noticias" aria-labelledby="noticias-title">
+      <div class="container">
+        <div class="section-header reveal">
+          <p class="section-tag">Tech News</p>
+          <h2 id="noticias-title" class="section-title">O mundo da tecnologia,<br/>em tempo real.</h2>
+          <p class="news-subtitle">Curadoria automática das principais publicações globais de tecnologia.</p>
+        </div>
+
+        <div class="news-filters reveal">
+          <button class="news-filter active" data-source="all">Todos</button>
+          <button class="news-filter" data-source="TechCrunch">TechCrunch</button>
+          <button class="news-filter" data-source="The Verge">The Verge</button>
+          <button class="news-filter" data-source="Wired">Wired</button>
+          <button class="news-filter" data-source="MIT Tech Review">MIT Tech Review</button>
+          <button class="news-filter" data-source="Hacker News">Hacker News</button>
+        </div>
+
+        <div id="newsGrid" class="news-grid" aria-live="polite" aria-label="Notícias de tecnologia">
+          <div class="news-loading">
+            <div class="news-spinner"></div>
+            <span>Buscando notícias...</span>
+          </div>
+        </div>
+
+        <div id="newsError" class="news-error" style="display:none">
+          <p>Não foi possível carregar as notícias. Tente novamente em instantes.</p>
+          <button class="btn-ghost" onclick="loadNews()">Tentar novamente</button>
+        </div>
+
+        <div class="news-footer reveal">
+          <p class="news-update" id="newsUpdate"></p>
+          <p class="news-sources">Fontes: TechCrunch · The Verge · Wired · MIT Technology Review · Hacker News</p>
+        </div>
+      </div>
+    </section>
+
     <!-- ========== CTA BAND ========== -->
     <section class="cta-band" aria-labelledby="cta-title">
       <div class="container">
@@ -534,6 +574,7 @@
           <a href="#servicos">Serviços</a>
           <a href="#sobre">Sobre</a>
           <a href="#projetos">Projetos</a>
+          <a href="#noticias">Tech News</a>
           <a href="#contato">Contato</a>
         </nav>
       </div>
