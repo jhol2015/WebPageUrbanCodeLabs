@@ -1559,66 +1559,106 @@ a.contact-item:hover { background: var(--surface); border-color: var(--border-hi
 }
 
 /* ============================================================
-   LIGHT MODE — service cards redesenhados
+   LIGHT MODE — service cards estilo Apple
    ============================================================ */
+
+/* grid: cards soltos com gap, sem wrapper cinza */
 [data-theme="light"] .services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
   background: transparent;
   border: none;
   box-shadow: none;
-  gap: 16px;
-  display: grid;
-  grid-template-columns: repeat(3,1fr);
+  border-radius: 0;
+  overflow: visible;
 }
+
 [data-theme="light"] .service-card {
   background: #ffffff;
-  border: 1px solid rgba(15,23,42,0.08);
-  border-radius: 20px;
-  box-shadow: 0 2px 8px rgba(15,23,42,0.05), 0 0 0 1px rgba(15,23,42,0.04);
-  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  border: 1px solid rgba(15,23,42,0.07);
+  border-radius: 22px;
+  padding: 32px 28px;
+  box-shadow:
+    0 1px 2px rgba(15,23,42,0.04),
+    0 4px 16px rgba(15,23,42,0.05);
+  transition:
+    transform 0.3s cubic-bezier(0.34,1.56,0.64,1),
+    box-shadow 0.3s ease,
+    border-color 0.3s ease;
   position: relative;
   overflow: hidden;
 }
-[data-theme="light"] .service-card::before {
+
+/* reflexo sutil no topo — estilo vidro Apple */
+[data-theme="light"] .service-card::after {
   content: '';
   position: absolute;
   top: 0; left: 0; right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, #1d6fce, #2563eb);
-  opacity: 0;
-  transition: opacity 0.25s ease;
-}
-[data-theme="light"] .service-card:hover {
-  background: #ffffff;
-  transform: translateY(-4px);
-  box-shadow: 0 12px 36px rgba(15,23,42,0.1), 0 2px 8px rgba(15,23,42,0.06);
-  border-color: rgba(29,111,206,0.2);
-}
-[data-theme="light"] .service-card:hover::before { opacity: 1; }
-[data-theme="light"] .service-icon {
-  width: 54px; height: 54px;
-  background: linear-gradient(135deg, #eff6ff, #dbeafe);
-  border: 1px solid rgba(29,111,206,0.15);
-  border-radius: 14px;
-  color: #1d6fce;
-  box-shadow: 0 2px 8px rgba(29,111,206,0.1);
-}
-[data-theme="light"] .service-card:hover .service-icon {
-  background: linear-gradient(135deg, #1d6fce, #2563eb);
-  color: #fff;
-  border-color: #1d6fce;
-  box-shadow: 0 6px 20px rgba(29,111,206,0.28);
-}
-[data-theme="light"] .service-card h3 {
-  color: #0f172a;
-  font-size: 1.05rem;
-}
-[data-theme="light"] .service-card p { color: #475569; }
-[data-theme="light"] .service-tags li {
-  background: #f0f6ff;
-  color: #1d6fce;
-  border: 1px solid rgba(29,111,206,0.15);
-  font-weight: 500;
+  height: 50%;
+  background: linear-gradient(180deg, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0) 100%);
+  pointer-events: none;
+  border-radius: 22px 22px 0 0;
 }
 
-@media (max-width: 540px) { [data-theme="light"] .services-grid { grid-template-columns: 1fr; } }
+[data-theme="light"] .service-card:hover {
+  transform: translateY(-5px) scale(1.005);
+  border-color: rgba(29,111,206,0.16);
+  box-shadow:
+    0 2px 4px rgba(15,23,42,0.04),
+    0 16px 48px rgba(15,23,42,0.09),
+    0 0 0 1px rgba(29,111,206,0.08);
+}
+
+/* ícone: quadrado arredondado como app iOS */
+[data-theme="light"] .service-icon {
+  width: 56px; height: 56px;
+  border-radius: 16px;
+  border: none;
+  background: linear-gradient(145deg, #e8f0fe, #d2e3fc);
+  color: #1a5db5;
+  box-shadow:
+    0 1px 3px rgba(29,111,206,0.12),
+    inset 0 1px 0 rgba(255,255,255,0.7);
+  margin-bottom: 22px;
+  transition: background 0.3s ease, box-shadow 0.3s ease, color 0.3s ease;
+}
+[data-theme="light"] .service-card:hover .service-icon {
+  background: linear-gradient(145deg, #1d6fce, #1a5db5);
+  color: #ffffff;
+  box-shadow:
+    0 4px 16px rgba(29,111,206,0.3),
+    inset 0 1px 0 rgba(255,255,255,0.2);
+}
+
+[data-theme="light"] .service-card h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #0f172a;
+  letter-spacing: -0.025em;
+  margin-bottom: 10px;
+}
+[data-theme="light"] .service-card p {
+  font-size: 0.875rem;
+  color: #64748b;
+  line-height: 1.65;
+  margin-bottom: 20px;
+}
+[data-theme="light"] .service-tags {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+[data-theme="light"] .service-tags li {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  color: #1a5db5;
+  background: rgba(29,111,206,0.07);
+  border: 1px solid rgba(29,111,206,0.12);
+  padding: 4px 10px;
+  border-radius: 100px;
+}
+
+@media (max-width: 540px)  { [data-theme="light"] .services-grid { grid-template-columns: 1fr; } }
 @media (min-width: 541px) and (max-width: 899px) { [data-theme="light"] .services-grid { grid-template-columns: repeat(2,1fr); } }
