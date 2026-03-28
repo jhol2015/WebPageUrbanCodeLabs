@@ -422,40 +422,73 @@
 
 
     <!-- ========== TECH NEWS ========== -->
-    <section class="section section-dark" id="noticias" aria-labelledby="noticias-title">
-      <div class="container">
-        <div class="section-header reveal">
-          <p class="section-tag">Tech News</p>
-          <h2 id="noticias-title" class="section-title">O mundo da tecnologia,<br/>em tempo real.</h2>
-          <p class="news-subtitle">Curadoria automática das principais publicações globais de tecnologia.</p>
-        </div>
+    <section id="noticias" aria-labelledby="noticias-title">
 
-        <div class="news-filters reveal">
-          <button class="news-filter active" data-source="all">Todos</button>
-          <button class="news-filter" data-source="TechCrunch">TechCrunch</button>
-          <button class="news-filter" data-source="The Verge">The Verge</button>
-          <button class="news-filter" data-source="Wired">Wired</button>
-          <button class="news-filter" data-source="MIT Tech Review">MIT Tech Review</button>
-          <button class="news-filter" data-source="Hacker News">Hacker News</button>
+      <!-- Ticker de manchetes -->
+      <div class="news-ticker-wrap" aria-hidden="true">
+        <div class="news-ticker-inner">
+          <span class="news-ticker-label">ÚLTIMAS</span>
+          <div id="newsTicker" class="news-ticker-track"></div>
         </div>
+      </div>
 
-        <div id="newsGrid" class="news-grid" aria-live="polite" aria-label="Notícias de tecnologia">
+      <!-- Cabeçalho editorial -->
+      <div class="news-masthead">
+        <div class="container">
+          <div class="news-masthead-inner">
+            <div>
+              <p class="section-tag">Tech News</p>
+              <h2 id="noticias-title" class="section-title">O mundo da tecnologia,<br/>em tempo real.</h2>
+            </div>
+            <div class="news-masthead-right">
+              <div class="news-filters">
+                <button class="news-filter active" data-source="all">Todos</button>
+                <button class="news-filter" data-source="Hacker News">HN</button>
+                <button class="news-filter" data-source="TechCrunch">TC</button>
+                <button class="news-filter" data-source="The Verge">Verge</button>
+                <button class="news-filter" data-source="Wired">Wired</button>
+                <button class="news-filter" data-source="MIT Tech Review">MIT</button>
+                <button class="news-filter" data-source="Ars Technica">Ars</button>
+              </div>
+              <p class="news-update-inline" id="newsUpdate"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Carrossel -->
+      <div class="news-carousel-wrap">
+        <button class="news-nav news-nav-prev" id="newsPrev" aria-label="Anterior">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+        <button class="news-nav news-nav-next" id="newsNext" aria-label="Próximo">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+        </button>
+
+        <div id="newsCarousel" class="news-carousel" aria-live="polite" aria-label="Notícias de tecnologia">
           <div class="news-loading">
             <div class="news-spinner"></div>
             <span>Buscando notícias...</span>
           </div>
         </div>
+      </div>
 
-        <div id="newsError" class="news-error" style="display:none">
-          <p>Não foi possível carregar as notícias. Tente novamente em instantes.</p>
+      <!-- Dots -->
+      <div id="newsDots" class="news-dots"></div>
+
+      <div id="newsError" class="news-error" style="display:none">
+        <div class="container">
+          <p>Não foi possível carregar as notícias.</p>
           <button class="btn-ghost" onclick="loadNews()">Tentar novamente</button>
         </div>
+      </div>
 
-        <div class="news-footer reveal">
-          <p class="news-update" id="newsUpdate"></p>
-          <p class="news-sources">Fontes: TechCrunch · The Verge · Wired · MIT Technology Review · Hacker News</p>
+      <div class="news-foot">
+        <div class="container">
+          <p class="news-sources">Fontes: TechCrunch · The Verge · Wired · MIT Technology Review · Hacker News · Ars Technica</p>
         </div>
       </div>
+
     </section>
 
     <!-- ========== CTA BAND ========== -->
