@@ -93,14 +93,12 @@ input, select, textarea { font-family: inherit; }
   }
 }
 
-/* transição suave ao trocar tema */
-*, *::before, *::after {
-  transition-property: background-color, border-color, color;
-  transition-duration: 0.25s;
-  transition-timing-function: ease;
+/* transição suave ao trocar tema — só quando há mudança de tema ativa */
+html.theme-transitioning *,
+html.theme-transitioning *::before,
+html.theme-transitioning *::after {
+  transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease !important;
 }
-/* mas não anima transforms e opacidade de layout */
-.reveal, .orb, .ticker, .news-river { transition-property: opacity, transform, background-color, border-color, color; }
 
 /* ---------- BASE ---------- */
 body {

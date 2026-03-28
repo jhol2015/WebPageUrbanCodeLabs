@@ -22,11 +22,14 @@
     themeBtn.addEventListener('click', function () {
       var current = html.getAttribute('data-theme');
       var next = current === 'dark' ? 'light' : 'dark';
+      // ativa classe de transição suave apenas durante a troca
+      html.classList.add('theme-transitioning');
       html.setAttribute('data-theme', next);
       localStorage.setItem('ucl-theme', next);
       themeBtn.setAttribute('aria-label',
         next === 'dark' ? 'Alternar para modo claro' : 'Alternar para modo escuro'
       );
+      setTimeout(function() { html.classList.remove('theme-transitioning'); }, 300);
     });
   }
 
