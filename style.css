@@ -1042,14 +1042,14 @@ a.contact-item:hover { background: var(--surface); border-color: var(--border-hi
   box-shadow: 1px 0 2px rgba(0,0,0,0.4), -1px 0 2px rgba(0,0,0,0.2);
 }
 
-/* card — altura fixa, layout em 3 zonas */
+/* card — altura fixa, grid de 3 linhas */
 .nc {
   flex-shrink: 0;
   width: 260px;
-  height: 230px;
-  display: flex;
-  flex-direction: column;
-  padding: 0;
+  height: 240px;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  padding: 16px 18px;
   background: var(--bg);
   border: none;
   text-decoration: none;
@@ -1060,14 +1060,13 @@ a.contact-item:hover { background: var(--surface); border-color: var(--border-hi
 .nc:hover { background: var(--surface); }
 @media (min-width: 768px) { .nc { width: 290px; } }
 
-/* zona 1: topo — fonte + data */
+/* linha 1: topo */
 .nc-top {
-  flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 8px;
-  padding: 16px 18px 0;
+  margin-bottom: 10px;
 }
 .nc-badge {
   font-size: 0.6rem;
@@ -1087,17 +1086,15 @@ a.contact-item:hover { background: var(--surface); border-color: var(--border-hi
   white-space: nowrap;
 }
 
-/* zona 2: conteúdo — linha + título + desc */
+/* linha 2: conteúdo — cresce e corta overflow */
 .nc-body {
-  flex: 1;
   overflow: hidden;
-  padding: 10px 18px 0;
+  min-height: 0;
 }
 .nc-line {
   height: 2px; width: 20px;
   border-radius: 1px;
   margin-bottom: 9px;
-  flex-shrink: 0;
   filter: brightness(1.4);
 }
 .nc h3 {
@@ -1123,12 +1120,9 @@ a.contact-item:hover { background: var(--surface); border-color: var(--border-hi
   overflow: hidden;
 }
 
-/* zona 3: rodapé fixo — LER */
-.nc-foot {
-  flex-shrink: 0;
-  padding: 10px 18px 14px;
-}
+/* linha 3: rodapé fixo */
 .nc-cta {
+  padding-top: 10px;
   font-size: 0.6rem;
   font-weight: 700;
   letter-spacing: 0.09em;
@@ -1138,6 +1132,7 @@ a.contact-item:hover { background: var(--surface); border-color: var(--border-hi
   gap: 5px;
   transition: gap var(--t);
   filter: brightness(1.4);
+  align-self: end;
 }
 .nc:hover .nc-cta { gap: 8px; }
 
