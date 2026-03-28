@@ -1110,7 +1110,7 @@ a.contact-item:hover { background: var(--surface); border-color: var(--border-hi
   overflow: hidden;
 }
 .nc-cta {
-  margin-top: 12px;
+  margin-top: auto;
   font-size: 0.6rem;
   font-weight: 700;
   letter-spacing: 0.09em;
