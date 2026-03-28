@@ -1552,3 +1552,8 @@ a.contact-item:hover { background: var(--surface); border-color: var(--border-hi
   .nav-cta     { border: 2px solid ButtonText; }
   .service-icon { border: 1px solid ButtonText; }
 }
+
+/* badges de fontes — maior contraste no light mode */
+[data-theme="light"] .nc-badge {
+  filter: brightness(0.7) saturate(1.4);
+}
