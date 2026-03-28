@@ -1,90 +1,93 @@
 export const config = { runtime: 'edge' };
 
 const FEEDS = [
-  { name: 'TechCrunch',        url: 'https://techcrunch.com/feed/',                   color: '#4f9ef8' },
-  { name: 'The Verge',         url: 'https://www.theverge.com/rss/index.xml',         color: '#7bb8ff' },
-  { name: 'Wired',             url: 'https://www.wired.com/feed/rss',                 color: '#34d399' },
-  { name: 'MIT Tech Review',   url: 'https://www.technologyreview.com/feed/',         color: '#e8a320' },
-  { name: 'Hacker News',       url: 'https://hnrss.org/frontpage?count=10',           color: '#f87171' },
+  { name: 'TechCrunch',      color: '#4f9ef8', url: 'https://techcrunch.com/feed/' },
+  { name: 'The Verge',       color: '#7bb8ff', url: 'https://www.theverge.com/rss/index.xml' },
+  { name: 'Wired',           color: '#34d399', url: 'https://www.wired.com/feed/rss' },
+  { name: 'MIT Tech Review', color: '#e8a320', url: 'https://www.technologyreview.com/feed/' },
+  { name: 'Hacker News',     color: '#f87171', url: 'https://hnrss.org/frontpage?count=10' },
 ];
+
+const ALLORIGINS = 'https://api.allorigins.win/get?url=';
 
 function decode(str) {
   return (str || '')
-    .replace(/&amp;/g, '&')
-    .replace(/&lt;/g, '<')
-    .replace(/&gt;/g, '>')
-    .replace(/&quot;/g, '"')
-    .replace(/&#39;/g, "'")
-    .replace(/&apos;/g, "'")
-    .replace(/<[^>]+>/g, '')
-    .trim();
+    .replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&apos;/g, "'")
+    .replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, '$1')
+    .replace(/<[^>]+>/g, '').trim();
 }
 
 function parseDate(str) {
   if (!str) return '';
   try {
     const d = new Date(str);
-    if (isNaN(d)) return str;
+    if (isNaN(d)) return '';
     return d.toLocaleDateString('pt-BR', { day: '2-digit', month: 'short', year: 'numeric' });
-  } catch { return str; }
+  } catch { return ''; }
 }
 
 function extractItems(xml, limit = 6) {
   const items = [];
-  const itemRegex = /<item[^>]*>([\s\S]*?)<\/item>|<entry[^>]*>([\s\S]*?)<\/entry>/gi;
-  let match;
-  while ((match = itemRegex.exec(xml)) !== null && items.length < limit) {
-    const block = match[1] || match[2];
-
-    const title = decode(
-      (/<title[^>]*><!\[CDATA\[([\s\S]*?)\]\]><\/title>/i.exec(block) ||
-       /<title[^>]*>([\s\S]*?)<\/title>/i.exec(block) || [])[1]
+  const re = /<item[^>]*>([\s\S]*?)<\/item>|<entry[^>]*>([\s\S]*?)<\/entry>/gi;
+  let m;
+  while ((m = re.exec(xml)) !== null && items.length < limit) {
+    const b = m[1] || m[2];
+    const title = decode((/<title[^>]*>([\s\S]*?)<\/title>/i.exec(b) || [])[1]);
+    const link  = decode(
+      (/<link[^>]*href="([^"]+)"/i.exec(b) ||
+       /<link[^>]*>\s*(https?:\/\/[^\s<]+)\s*<\/link>/i.exec(b) ||
+       /<guid[^>]*>\s*(https?:\/\/[^\s<]+)\s*<\/guid>/i.exec(b) || [])[1]
     );
-
-    const link = decode(
-      (/<link[^>]*href="([^"]+)"/i.exec(block) ||
-       /<link[^>]*>(https?:\/\/[^\s<]+)<\/link>/i.exec(block) ||
-       /<guid[^>]*>(https?:\/\/[^\s<]+)<\/guid>/i.exec(block) || [])[1]
-    );
-
     const desc = decode(
-      (/<description[^>]*><!\[CDATA\[([\s\S]*?)\]\]><\/description>/i.exec(block) ||
-       /<description[^>]*>([\s\S]*?)<\/description>/i.exec(block) ||
-       /<summary[^>]*>([\s\S]*?)<\/summary>/i.exec(block) || [])[1]
-    ).slice(0, 140) + '...';
-
+      (/<description[^>]*>([\s\S]*?)<\/description>/i.exec(b) ||
+       /<summary[^>]*>([\s\S]*?)<\/summary>/i.exec(b) || [])[1]
+    ).slice(0, 160);
     const pubDate = parseDate(
-      (/<pubDate[^>]*>([\s\S]*?)<\/pubDate>/i.exec(block) ||
-       /<published[^>]*>([\s\S]*?)<\/published>/i.exec(block) ||
-       /<updated[^>]*>([\s\S]*?)<\/updated>/i.exec(block) || [])[1]
+      (/<pubDate[^>]*>([\s\S]*?)<\/pubDate>/i.exec(b) ||
+       /<published[^>]*>([\s\S]*?)<\/published>/i.exec(b) ||
+       /<updated[^>]*>([\s\S]*?)<\/updated>/i.exec(b) || [])[1]
     );
-
     if (title && link) items.push({ title, link, desc, pubDate });
   }
   return items;
 }
 
 async function fetchFeed(feed) {
-  try {
-    const res = await fetch(feed.url, {
-      headers: { 'User-Agent': 'Mozilla/5.0 (compatible; UCLNewsBot/1.0)' },
-      signal: AbortSignal.timeout(5000),
-    });
-    if (!res.ok) return null;
-    const xml = await res.text();
-    const items = extractItems(xml, 6);
-    if (!items.length) return null;
-    return { source: feed.name, color: feed.color, items };
-  } catch { return null; }
+  const attempts = [
+    // tentativa 1: direto
+    () => fetch(feed.url, {
+      headers: { 'User-Agent': 'Mozilla/5.0 (compatible; UCLBot/1.0; +https://urbancodelabs.com.br)' },
+      signal: AbortSignal.timeout(6000),
+    }),
+    // tentativa 2: via allorigins proxy
+    () => fetch(ALLORIGINS + encodeURIComponent(feed.url), {
+      signal: AbortSignal.timeout(8000),
+    }).then(async r => {
+      const j = await r.json();
+      return new Response(j.contents, { status: 200 });
+    }),
+  ];
+
+  for (const attempt of attempts) {
+    try {
+      const res = await attempt();
+      if (!res.ok) continue;
+      const xml = await res.text();
+      const items = extractItems(xml, 6);
+      if (items.length > 0) return { source: feed.name, color: feed.color, items };
+    } catch { continue; }
+  }
+  return null;
 }
 
 export default async function handler() {
   const results = await Promise.allSettled(FEEDS.map(fetchFeed));
-  const data = results
+  const feeds = results
     .filter(r => r.status === 'fulfilled' && r.value)
     .map(r => r.value);
 
-  return new Response(JSON.stringify({ ok: true, feeds: data, ts: Date.now() }), {
+  return new Response(JSON.stringify({ ok: true, feeds, ts: Date.now() }), {
     headers: {
       'Content-Type': 'application/json',
       'Cache-Control': 'public, s-maxage=1800, stale-while-revalidate=3600',
