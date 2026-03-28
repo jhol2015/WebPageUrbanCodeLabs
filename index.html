@@ -440,23 +440,14 @@
           </div>
           <p class="news-ts" id="newsUpdate"></p>
         </div>
-        <div class="news-stage">
-          <button class="news-arrow news-arrow-l" id="newsPrev" aria-label="Anterior" disabled>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
-          </button>
-          <button class="news-arrow news-arrow-r" id="newsNext" aria-label="Próximo">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
-          </button>
-          <div class="news-viewport" id="newsViewport">
-            <div class="news-track" id="newsTrack">
-              <div class="news-loading-state">
-                <div class="news-spin"></div>
-                <span>Buscando notícias...</span>
-              </div>
+        <div class="news-river-wrap" id="newsRiverWrap">
+          <div class="news-river" id="newsRiver">
+            <div class="news-loading-state">
+              <div class="news-spin"></div>
+              <span>Buscando notícias...</span>
             </div>
           </div>
         </div>
-        <div class="news-dots" id="newsDots"></div>
         <div class="news-err" id="newsErr" style="display:none">
           <p>Não foi possível carregar as notícias.</p>
           <button class="btn-ghost" onclick="loadNews()">Tentar novamente</button>
