@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- SEO Primary -->
+  <title>Urban Code Labs — Software de Alto Impacto para Governos e Empresas</title>
+  <meta name="description" content="Desenvolvemos software de alta performance para governos e empresas. Especialistas em GovTech, Machine Learning, apps mobile e outsourcing de TI. Sede em Goiânia, Brasil." />
+  <meta name="keywords" content="software governamental, govtech, desenvolvimento mobile, machine learning, outsourcing TI, Goiânia, prefeitura, LGPD, Gov.br, Urban Code Labs" />
+  <meta name="author" content="Urban Code Labs" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://urbancodelabs.com.br/" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://urbancodelabs.com.br/" />
+  <meta property="og:title" content="Urban Code Labs — Software de Alto Impacto" />
+  <meta property="og:description" content="Desenvolvemos software de alta performance para governos e empresas. GovTech, ML, Mobile e Outsourcing de TI." />
+  <meta property="og:image" content="https://urbancodelabs.com.br/og-image.png" />
+  <meta property="og:locale" content="pt_BR" />
+  <meta property="og:site_name" content="Urban Code Labs" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Urban Code Labs — Software de Alto Impacto" />
+  <meta name="twitter:description" content="Desenvolvemos software para governos e empresas. GovTech, ML, Mobile e Outsourcing de TI." />
+  <meta name="twitter:image" content="https://urbancodelabs.com.br/og-image.png" />
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Urban Code Labs",
+    "url": "https://urbancodelabs.com.br",
+    "logo": "https://urbancodelabs.com.br/og-image.png",
+    "description": "Empresa de desenvolvimento de software especializada em soluções governamentais, machine learning, apps mobile e outsourcing de TI.",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Goiânia",
+      "addressRegion": "Goiás",
+      "addressCountry": "BR"
+    },
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "telephone": "+55-62-98197-2706",
+      "contactType": "customer service",
+      "availableLanguage": "Portuguese"
+    },
+    "sameAs": []
+  }
+  </script>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ========== NAVBAR ========== -->
+  <header role="banner">
+    <nav id="navbar" aria-label="Navegação principal">
+      <div class="nav-inner">
+        <a href="#home" class="logo" aria-label="Urban Code Labs — Home">
+          <div class="logo-mark" aria-hidden="true">
+            <svg width="30" height="30" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="2" y="2" width="13" height="13" rx="3" fill="#4f9ef8"/>
+              <rect x="17" y="2" width="13" height="13" rx="3" fill="#4f9ef8" opacity="0.45"/>
+              <rect x="2" y="17" width="13" height="13" rx="3" fill="#4f9ef8" opacity="0.45"/>
+              <rect x="17" y="17" width="13" height="13" rx="3" fill="#4f9ef8"/>
+            </svg>
+          </div>
+          <span class="logo-text">Urban Code Labs</span>
+        </a>
+        <ul class="nav-links" role="list">
+          <li><a href="#servicos">Serviços</a></li>
+          <li><a href="#sobre">Sobre</a></li>
+          <li><a href="#projetos">Projetos</a></li>
+          <li><a href="#contato" class="nav-cta">Fale Conosco</a></li>
+        </ul>
+        <button class="hamburger" id="hamburger" aria-label="Abrir menu" aria-expanded="false" aria-controls="mobileMenu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+      <div class="mobile-menu" id="mobileMenu" role="navigation" aria-label="Menu mobile" aria-hidden="true">
+        <a href="#servicos">Serviços</a>
+        <a href="#sobre">Sobre</a>
+        <a href="#projetos">Projetos</a>
+        <a href="#contato">Fale Conosco</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- ========== HERO ========== -->
+    <section class="hero" id="home" aria-labelledby="hero-title">
+      <div class="hero-bg" aria-hidden="true">
+        <div class="orb orb1"></div>
+        <div class="orb orb2"></div>
+        <div class="orb orb3"></div>
+        <div class="grid-overlay"></div>
+      </div>
+      <div class="container">
+        <div class="hero-content">
+          <div class="hero-badge reveal">
+            <span class="badge-dot" aria-hidden="true"></span>
+            <span>Goiânia · Brasil · Global</span>
+          </div>
+          <h1 id="hero-title" class="hero-title reveal">
+            Código que<br/>
+            <em>transforma</em><br/>
+            realidades.
+          </h1>
+          <p class="hero-sub reveal">
+            Desenvolvemos software de alta performance para governos e empresas que exigem excelência. Da arquitetura ao deploy — com precisão e propósito.
+          </p>
+          <div class="hero-actions reveal">
+            <a href="#projetos" class="btn-primary">Ver Projetos</a>
+            <a href="#contato" class="btn-ghost">Iniciar Projeto</a>
+          </div>
+          <div class="hero-stats reveal" role="list" aria-label="Números da empresa">
+            <div class="stat" role="listitem">
+              <span class="stat-num">4+</span>
+              <span class="stat-label">Anos de Experiência</span>
+            </div>
+            <div class="stat-divider" aria-hidden="true"></div>
+            <div class="stat" role="listitem">
+              <span class="stat-num">Gov</span>
+              <span class="stat-label">Contratos Públicos</span>
+            </div>
+            <div class="stat-divider" aria-hidden="true"></div>
+            <div class="stat" role="listitem">
+              <span class="stat-num">100%</span>
+              <span class="stat-label">Foco em Resultado</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== TICKER ========== -->
+    <div class="ticker-wrap" aria-hidden="true">
+      <div class="ticker">
+        <span>Desenvolvimento Mobile</span><span class="dot">·</span>
+        <span>Gestão de Projetos</span><span class="dot">·</span>
+        <span>Soluções Governamentais</span><span class="dot">·</span>
+        <span>Arquitetura de Software</span><span class="dot">·</span>
+        <span>Rust · Preact · PostgreSQL</span><span class="dot">·</span>
+        <span>Integração Gov.br</span><span class="dot">·</span>
+        <span>Machine Learning</span><span class="dot">·</span>
+        <span>LGPD &amp; Compliance</span><span class="dot">·</span>
+        <span>Desenvolvimento Mobile</span><span class="dot">·</span>
+        <span>Gestão de Projetos</span><span class="dot">·</span>
+        <span>Soluções Governamentais</span><span class="dot">·</span>
+        <span>Arquitetura de Software</span><span class="dot">·</span>
+        <span>Rust · Preact · PostgreSQL</span><span class="dot">·</span>
+        <span>Integração Gov.br</span><span class="dot">·</span>
+        <span>Machine Learning</span><span class="dot">·</span>
+        <span>LGPD &amp; Compliance</span><span class="dot">·</span>
+      </div>
+    </div>
+
+    <!-- ========== SERVIÇOS ========== -->
+    <section class="section" id="servicos" aria-labelledby="servicos-title">
+      <div class="container">
+        <div class="section-header reveal">
+          <p class="section-tag">O Que Fazemos</p>
+          <h2 id="servicos-title" class="section-title">Expertise que<br/>gera impacto real.</h2>
+        </div>
+        <div class="services-grid">
+
+          <article class="service-card reveal" style="--d:0ms">
+            <div class="service-icon" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+                <circle cx="12" cy="12" r="9"/><path d="M12 8v4l2.5 2.5"/>
+              </svg>
+            </div>
+            <h3>Gestão de Projetos</h3>
+            <p>Metodologias ágeis adaptadas à realidade dos contratos públicos. Entrega com previsibilidade e conformidade.</p>
+            <ul class="service-tags" aria-label="Tecnologias">
+              <li>Scrum</li><li>PMI</li><li>Contratos</li>
+            </ul>
+          </article>
+
+          <article class="service-card reveal" style="--d:80ms">
+            <div class="service-icon" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+                <rect x="7" y="2" width="10" height="18" rx="2"/><circle cx="10" cy="7" r="1" fill="currentColor" stroke="none"/>
+              </svg>
+            </div>
+            <h3>Desenvolvimento Mobile</h3>
+            <p>Apps nativos iOS e multiplataforma com foco em experiência, performance e segurança para o setor público e privado.</p>
+            <ul class="service-tags" aria-label="Tecnologias">
+              <li>Swift</li><li>SwiftUI</li><li>iOS</li>
+            </ul>
+          </article>
+
+          <article class="service-card reveal" style="--d:160ms">
+            <div class="service-icon" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+                <path d="M3 7h18M3 12h14M3 17h8"/>
+              </svg>
+            </div>
+            <h3>Soluções Governamentais</h3>
+            <p>Sistemas integrados à infraestrutura pública. Conformidade com LGPD, Gov.br e normas do setor municipal e estadual.</p>
+            <ul class="service-tags" aria-label="Tecnologias">
+              <li>Gov.br</li><li>LGPD</li><li>Prefeituras</li>
+            </ul>
+          </article>
+
+          <article class="service-card reveal" style="--d:240ms">
+            <div class="service-icon" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M8 12l4-4 4 4 4-4"/>
+                <rect x="3" y="17" width="4" height="5" rx="1"/>
+                <rect x="10" y="13" width="4" height="9" rx="1"/>
+                <rect x="17" y="9" width="4" height="13" rx="1"/>
+              </svg>
+            </div>
+            <h3>Arquitetura &amp; Consultoria</h3>
+            <p>Diagnóstico técnico, roadmap estratégico e arquitetura de sistemas escaláveis. Da ideia ao produto em produção.</p>
+            <ul class="service-tags" aria-label="Tecnologias">
+              <li>Arquitetura</li><li>API</li><li>Cloud</li>
+            </ul>
+          </article>
+
+          <article class="service-card reveal" style="--d:320ms">
+            <div class="service-icon" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+                <circle cx="12" cy="12" r="3"/>
+                <path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6l1.4 1.4M17 17l1.4 1.4M17 7l1.4-1.4M5.6 18.4l1.4-1.4"/>
+              </svg>
+            </div>
+            <h3>Integração de IA</h3>
+            <p>Chatbots inteligentes, automação de processos e soluções com IA aplicada a serviços públicos e atendimento ao cidadão.</p>
+            <ul class="service-tags" aria-label="Tecnologias">
+              <li>IA</li><li>NLP</li><li>Chatbot</li>
+            </ul>
+          </article>
+
+          <article class="service-card reveal" style="--d:400ms">
+            <div class="service-icon" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 4H8a4 4 0 00-4 4v8a4 4 0 004 4h8a4 4 0 004-4v-4"/>
+                <path d="M16 4h4v4M20 4L11 13"/>
+              </svg>
+            </div>
+            <h3>Outsourcing de TI</h3>
+            <p>Alocação estratégica de times técnicos para projetos de curto e longo prazo. Entregamos equipe, processo e resultado.</p>
+            <ul class="service-tags" aria-label="Tecnologias">
+              <li>Squad</li><li>Outsourcing</li><li>TI</li>
+            </ul>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== SOBRE ========== -->
+    <section class="section section-dark" id="sobre" aria-labelledby="sobre-title">
+      <div class="container">
+        <div class="about-layout">
+          <div class="about-left reveal">
+            <p class="section-tag">Quem Somos</p>
+            <h2 id="sobre-title" class="section-title">Tecnologia com<br/>raiz goiana,<br/>alcance nacional.</h2>
+            <p class="about-text">
+              A Urban Code Labs nasceu em Goiânia com uma missão clara: elevar o padrão de software no setor público e privado. Combinamos gestão profissional de projetos com desenvolvimento técnico de alto nível para entregar soluções que realmente funcionam.
+            </p>
+            <p class="about-text">
+              Nosso time entende tanto o código quanto o negócio — e sabe navegar a complexidade dos contratos governamentais com segurança e precisão.
+            </p>
+            <ul class="about-pillars" aria-label="Nossos pilares">
+              <li class="pillar">
+                <span class="pillar-icon" aria-hidden="true">✦</span>
+                <div>
+                  <strong>Segurança por Padrão</strong>
+                  <span>LGPD, autenticação robusta e práticas DevSecOps em todo projeto.</span>
+                </div>
+              </li>
+              <li class="pillar">
+                <span class="pillar-icon" aria-hidden="true">✦</span>
+                <div>
+                  <strong>Entrega Previsível</strong>
+                  <span>Metodologias ágeis adaptadas ao rigor dos contratos públicos.</span>
+                </div>
+              </li>
+              <li class="pillar">
+                <span class="pillar-icon" aria-hidden="true">✦</span>
+                <div>
+                  <strong>Visão Estratégica</strong>
+                  <span>Não apenas executamos — pensamos junto com o cliente.</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div class="about-right reveal">
+            <div class="about-card-stack" aria-hidden="true">
+              <div class="about-card card-back">
+                <div class="card-label">Contrato Ativo</div>
+                <div class="card-value">Prefeitura de Goiânia</div>
+                <div class="card-sub">Solução Municipal · Em Produção</div>
+              </div>
+              <div class="about-card card-front">
+                <div class="card-icon-wrap">
+                  <svg width="36" height="36" viewBox="0 0 32 32" fill="none">
+                    <rect x="2" y="2" width="13" height="13" rx="3" fill="#4f9ef8" opacity="0.9"/>
+                    <rect x="17" y="2" width="13" height="13" rx="3" fill="#4f9ef8" opacity="0.4"/>
+                    <rect x="2" y="17" width="13" height="13" rx="3" fill="#4f9ef8" opacity="0.4"/>
+                    <rect x="17" y="17" width="13" height="13" rx="3" fill="#4f9ef8" opacity="0.9"/>
+                  </svg>
+                </div>
+                <div class="card-main-label">Urban Code Labs</div>
+                <div class="card-main-sub">Software · Gestão · Inovação</div>
+                <div class="card-divider"></div>
+                <div class="card-location">📍 Goiânia, Goiás — Brasil</div>
+                <ul class="card-badges">
+                  <li>Gov.br</li><li>LGPD</li><li>Ágil</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== PROJETOS ========== -->
+    <section class="section" id="projetos" aria-labelledby="projetos-title">
+      <div class="container">
+        <div class="section-header reveal">
+          <p class="section-tag">Projetos</p>
+          <h2 id="projetos-title" class="section-title">Soluções que<br/>já estão no mundo.</h2>
+        </div>
+        <div class="projects-grid">
+
+          <article class="project-card project-blue reveal">
+            <div class="project-header-row">
+              <p class="project-tag">Plataforma · GovTech · SaaS Municipal</p>
+              <div class="project-status">
+                <span class="status-dot" aria-hidden="true"></span>
+                <span>Em desenvolvimento</span>
+              </div>
+            </div>
+            <h3>GOVOS — Sistema Operacional de Prefeituras</h3>
+            <p>Plataforma SaaS modular para gestão completa de municípios brasileiros. Integra serviços ao cidadão, pagamentos, autenticação Gov.br, gestão de processos internos e funcionalidades offline-first — projetado para escalar de Goiânia a centenas de prefeituras em todo o Brasil.</p>
+            <ul class="project-highlights" aria-label="Destaques do projeto">
+              <li>
+                <span class="hi-icon" aria-hidden="true">
+                  <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="5" height="5" rx="1"/><rect x="9" y="2" width="5" height="5" rx="1"/><rect x="2" y="9" width="5" height="5" rx="1"/><rect x="9" y="9" width="5" height="5" rx="1"/></svg>
+                </span>
+                Arquitetura multi-tenant escalável por município
+              </li>
+              <li>
+                <span class="hi-icon" aria-hidden="true">
+                  <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="6"/><path d="M8 5v3l2 2" stroke-linecap="round"/></svg>
+                </span>
+                Offline-first com sincronização inteligente
+              </li>
+              <li>
+                <span class="hi-icon" aria-hidden="true">
+                  <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 5H3M11 8H5M9 11H7" stroke-linecap="round"/></svg>
+                </span>
+                Conformidade LGPD e padrões Gov.br nativos
+              </li>
+            </ul>
+            <ul class="project-stack" aria-label="Tecnologias">
+              <li>Rust</li><li>Preact</li><li>PostgreSQL</li><li>LGPD</li><li>Multi-tenant</li><li>Gov.br</li>
+            </ul>
+          </article>
+
+          <article class="project-card project-amber reveal" style="--d:120ms">
+            <div class="project-header-row">
+              <p class="project-tag">Machine Learning · Mercado Financeiro</p>
+              <div class="project-status">
+                <span class="status-dot" aria-hidden="true"></span>
+                <span>Em desenvolvimento</span>
+              </div>
+            </div>
+            <h3>DataFin ML — Higienização &amp; Enriquecimento de Dados Financeiros</h3>
+            <p>Sistema de Machine Learning especializado no tratamento, higienização e enriquecimento de dados de clientes provenientes de múltiplas bases heterogêneas do mercado financeiro. Resolve inconsistências, deduplicações e normalização em escala — garantindo qualidade de dado para compliance, análise e decisão de crédito.</p>
+            <ul class="project-highlights project-highlights-amber" aria-label="Destaques do projeto">
+              <li>
+                <span class="hi-icon" aria-hidden="true">
+                  <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 10l4-4 3 3 5-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+                Deduplicação e match de entidades entre bases distintas
+              </li>
+              <li>
+                <span class="hi-icon" aria-hidden="true">
+                  <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="6"/><path d="M8 5v3l2 2" stroke-linecap="round"/></svg>
+                </span>
+                Pipeline automatizado de ETL com validação por ML
+              </li>
+              <li>
+                <span class="hi-icon" aria-hidden="true">
+                  <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="9" width="3" height="5" rx="1"/><rect x="6.5" y="6" width="3" height="8" rx="1"/><rect x="11" y="3" width="3" height="11" rx="1"/></svg>
+                </span>
+                Score de qualidade por registro com rastreabilidade
+              </li>
+            </ul>
+            <ul class="project-stack project-stack-amber" aria-label="Tecnologias">
+              <li>Python</li><li>ML</li><li>ETL</li><li>Multi-base</li><li>LGPD</li><li>KYC</li>
+            </ul>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== CTA BAND ========== -->
+    <section class="cta-band" aria-labelledby="cta-title">
+      <div class="container">
+        <div class="cta-inner reveal">
+          <h2 id="cta-title">Seu próximo projeto<br/>começa com uma conversa.</h2>
+          <p>Seja um sistema municipal, um app nativo ou uma consultoria estratégica — estamos prontos.</p>
+          <a href="#contato" class="btn-primary btn-large">Iniciar Conversa</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== CONTATO ========== -->
+    <section class="section" id="contato" aria-labelledby="contato-title">
+      <div class="container">
+        <div class="contact-layout">
+          <div class="contact-left reveal">
+            <p class="section-tag">Contato</p>
+            <h2 id="contato-title" class="section-title">Vamos construir<br/>algo juntos.</h2>
+            <p class="contact-sub">Atendemos projetos de todo o Brasil. Com sede em Goiânia e operação remota flexível.</p>
+            <address class="contact-items">
+              <a href="https://wa.me/5562981972706" target="_blank" rel="noopener noreferrer" class="contact-item contact-whatsapp" aria-label="Falar no WhatsApp: (62) 98197-2706">
+                <div class="contact-item-icon" aria-hidden="true">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+                    <path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.122 1.532 5.853L.054 23.5a.5.5 0 00.609.61l5.73-1.498A11.926 11.926 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.882a9.845 9.845 0 01-5.031-1.378l-.36-.214-3.733.976.999-3.647-.235-.374A9.869 9.869 0 012.118 12C2.118 6.52 6.52 2.118 12 2.118S21.882 6.52 21.882 12 17.48 21.882 12 21.882z"/>
+                  </svg>
+                </div>
+                <div>
+                  <span class="contact-item-label">WhatsApp</span>
+                  <span class="contact-item-value">(62) 98197-2706</span>
+                </div>
+              </a>
+              <div class="contact-item">
+                <div class="contact-item-icon" aria-hidden="true">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
+                    <circle cx="12" cy="9" r="2.5"/>
+                  </svg>
+                </div>
+                <div>
+                  <span class="contact-item-label">Localização</span>
+                  <span class="contact-item-value">Goiânia, Goiás — Brasil</span>
+                </div>
+              </div>
+              <div class="contact-item">
+                <div class="contact-item-icon" aria-hidden="true">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+                    <circle cx="12" cy="12" r="10"/>
+                    <path d="M2 12h20M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/>
+                  </svg>
+                </div>
+                <div>
+                  <span class="contact-item-label">Atendimento</span>
+                  <span class="contact-item-value">Nacional · Remoto &amp; Presencial</span>
+                </div>
+              </div>
+            </address>
+          </div>
+
+          <div class="contact-right reveal" style="--d:100ms">
+            <div class="contact-form-card">
+              <h3>Envie uma mensagem</h3>
+              <form id="contactForm" novalidate>
+                <div class="form-group">
+                  <label for="nome">Nome</label>
+                  <input type="text" id="nome" name="nome" placeholder="Seu nome completo" autocomplete="name" required />
+                </div>
+                <div class="form-group">
+                  <label for="email">E-mail</label>
+                  <input type="email" id="email" name="email" placeholder="seu@email.com" autocomplete="email" required />
+                </div>
+                <div class="form-group">
+                  <label for="tipo">Tipo de Projeto</label>
+                  <select id="tipo" name="tipo">
+                    <option value="">Selecione...</option>
+                    <option value="gov">Sistema Municipal / Governamental</option>
+                    <option value="mobile">Aplicativo Mobile</option>
+                    <option value="consultoria">Consultoria Técnica</option>
+                    <option value="outsourcing">Outsourcing de TI</option>
+                    <option value="ia">Integração com IA / ML</option>
+                    <option value="outro">Outro</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="mensagem">Mensagem</label>
+                  <textarea id="mensagem" name="mensagem" placeholder="Conte sobre seu projeto..." rows="4" required></textarea>
+                </div>
+                <button type="submit" class="btn-primary btn-full">Enviar Mensagem</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-top">
+        <a href="#home" class="logo" aria-label="Urban Code Labs — topo da página">
+          <div class="logo-mark" aria-hidden="true">
+            <svg width="26" height="26" viewBox="0 0 32 32" fill="none">
+              <rect x="2" y="2" width="13" height="13" rx="3" fill="#4f9ef8"/>
+              <rect x="17" y="2" width="13" height="13" rx="3" fill="#4f9ef8" opacity="0.45"/>
+              <rect x="2" y="17" width="13" height="13" rx="3" fill="#4f9ef8" opacity="0.45"/>
+              <rect x="17" y="17" width="13" height="13" rx="3" fill="#4f9ef8"/>
+            </svg>
+          </div>
+          <span class="logo-text">Urban Code Labs</span>
+        </a>
+        <nav class="footer-nav" aria-label="Links do rodapé">
+          <a href="#servicos">Serviços</a>
+          <a href="#sobre">Sobre</a>
+          <a href="#projetos">Projetos</a>
+          <a href="#contato">Contato</a>
+        </nav>
+      </div>
+      <div class="footer-bottom">
+        <small>© 2025 Urban Code Labs. Todos os direitos reservados.</small>
+        <small>Goiânia · Goiás · Brasil</small>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ========== WHATSAPP FLOAT ========== -->
+  <a href="https://wa.me/5562981972706" target="_blank" rel="noopener noreferrer" class="whatsapp-float" aria-label="Abrir conversa no WhatsApp">
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="white" aria-hidden="true">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+      <path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.122 1.532 5.853L.054 23.5a.5.5 0 00.609.61l5.73-1.498A11.926 11.926 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.882a9.845 9.845 0 01-5.031-1.378l-.36-.214-3.733.976.999-3.647-.235-.374A9.869 9.869 0 012.118 12C2.118 6.52 6.52 2.118 12 2.118S21.882 6.52 21.882 12 17.48 21.882 12 21.882z"/>
+    </svg>
+    <span class="wpp-tooltip">Fale no WhatsApp</span>
+  </a>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
