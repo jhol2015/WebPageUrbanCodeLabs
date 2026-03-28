@@ -403,8 +403,8 @@ body {
 .ticker-wrap {
   overflow: hidden;
   background: var(--surface);
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
+  border-top: 1px solid rgba(79,158,248,0.35);
+  border-bottom: 1px solid rgba(79,158,248,0.35);
   padding: 13px 0;
   white-space: nowrap;
 }
