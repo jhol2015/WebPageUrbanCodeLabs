@@ -980,12 +980,13 @@ a.contact-item:hover { background: var(--surface); border-color: var(--border-hi
 .news-filter.active { color: #fff; background: var(--accent); border-color: var(--accent); }
 .news-ts { font-size: 0.68rem; color: var(--text3); white-space: nowrap; }
 
-/* wrapper full-bleed com fade */
+/* wrapper full-bleed 100vw */
 .news-river-wrap {
   position: relative;
   overflow: hidden;
-  margin: 0 -20px;
-  padding: 0;
+  width: 100vw;
+  left: 50%;
+  transform: translateX(-50%);
   cursor: default;
 }
 .news-river-wrap::before,
@@ -993,14 +994,12 @@ a.contact-item:hover { background: var(--surface); border-color: var(--border-hi
   content: '';
   position: absolute;
   top: 0; bottom: 0;
-  width: 60px;
+  width: 80px;
   z-index: 2;
   pointer-events: none;
 }
-.news-river-wrap::before { left: 0;  background: linear-gradient(to right, var(--bg2) 20%, transparent); }
-.news-river-wrap::after  { right: 0; background: linear-gradient(to left,  var(--bg2) 20%, transparent); }
-@media (min-width: 640px)  { .news-river-wrap { margin: 0 -28px; } }
-@media (min-width: 1024px) { .news-river-wrap { margin: 0 -40px; } }
+.news-river-wrap::before { left: 0;  background: linear-gradient(to right, var(--bg2) 10%, transparent); }
+.news-river-wrap::after  { right: 0; background: linear-gradient(to left,  var(--bg2) 10%, transparent); }
 
 /* container único — borda superior e inferior */
 .news-river-container {
@@ -1043,10 +1042,11 @@ a.contact-item:hover { background: var(--surface); border-color: var(--border-hi
   box-shadow: 1px 0 2px rgba(0,0,0,0.4), -1px 0 2px rgba(0,0,0,0.2);
 }
 
-/* card */
+/* card — altura fixa para consistência entre fontes */
 .nc {
   flex-shrink: 0;
   width: 260px;
+  height: 220px;
   display: flex;
   flex-direction: column;
   padding: 18px 20px;
@@ -1055,9 +1055,10 @@ a.contact-item:hover { background: var(--surface); border-color: var(--border-hi
   text-decoration: none;
   transition: background var(--t);
   user-select: none;
+  overflow: hidden;
 }
 .nc:hover { background: var(--surface); }
-@media (min-width: 768px) { .nc { width: 290px; } }
+@media (min-width: 768px) { .nc { width: 290px; height: 220px; } }
 
 .nc-top {
   display: flex;
@@ -1103,7 +1104,6 @@ a.contact-item:hover { background: var(--surface); border-color: var(--border-hi
   font-size: 0.75rem;
   color: #888;
   line-height: 1.55;
-  flex: 1;
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
