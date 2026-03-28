@@ -424,16 +424,12 @@
     <!-- ========== TECH NEWS ========== -->
     <section class="section section-dark" id="noticias" aria-labelledby="noticias-title">
       <div class="container">
-
-        <!-- Cabeçalho -->
         <div class="section-header reveal">
           <p class="section-tag">Tech News</p>
           <h2 id="noticias-title" class="section-title">O mundo da tecnologia,<br/>em tempo real.</h2>
         </div>
-
-        <!-- Barra editorial: filtros + timestamp -->
         <div class="news-bar reveal">
-          <div class="news-filters">
+          <div class="news-filters" role="group" aria-label="Filtrar por fonte">
             <button class="news-filter active" data-source="all">Todos</button>
             <button class="news-filter" data-source="Hacker News">Hacker News</button>
             <button class="news-filter" data-source="TechCrunch">TechCrunch</button>
@@ -442,37 +438,30 @@
             <button class="news-filter" data-source="MIT Tech Review">MIT</button>
             <button class="news-filter" data-source="Ars Technica">Ars Technica</button>
           </div>
-          <p class="news-update-inline" id="newsUpdate"></p>
+          <p class="news-ts" id="newsUpdate"></p>
         </div>
-
-        <!-- Wrapper carrossel com setas -->
-        <div class="news-carousel-outer">
-          <button class="news-nav news-nav-prev" id="newsPrev" aria-label="Anterior">
+        <div class="news-stage">
+          <button class="news-arrow news-arrow-l" id="newsPrev" aria-label="Anterior" disabled>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
           </button>
-          <button class="news-nav news-nav-next" id="newsNext" aria-label="Próximo">
+          <button class="news-arrow news-arrow-r" id="newsNext" aria-label="Próximo">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
           </button>
-          <div id="newsCarousel" class="news-carousel" aria-live="polite">
-            <div class="news-loading">
-              <div class="news-spinner"></div>
-              <span>Buscando notícias...</span>
+          <div class="news-viewport" id="newsViewport">
+            <div class="news-track" id="newsTrack">
+              <div class="news-loading-state">
+                <div class="news-spin"></div>
+                <span>Buscando notícias...</span>
+              </div>
             </div>
           </div>
         </div>
-
-        <!-- Dots -->
-        <div id="newsDots" class="news-dots"></div>
-
-        <!-- Erro -->
-        <div id="newsError" class="news-error" style="display:none">
+        <div class="news-dots" id="newsDots"></div>
+        <div class="news-err" id="newsErr" style="display:none">
           <p>Não foi possível carregar as notícias.</p>
           <button class="btn-ghost" onclick="loadNews()">Tentar novamente</button>
         </div>
-
-        <!-- Rodapé -->
-        <p class="news-sources">Fontes: TechCrunch · The Verge · Wired · MIT Technology Review · Hacker News · Ars Technica</p>
-
+        <p class="news-foot-sources">Fontes: Hacker News · TechCrunch · The Verge · Wired · MIT Technology Review · Ars Technica</p>
       </div>
     </section>
 
