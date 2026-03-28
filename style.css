@@ -533,31 +533,32 @@ body {
 .about-card-stack {
   position: relative;
   width: 100%;
-  padding-bottom: 12px;
-  padding-right: 12px;
 }
 
 @media (max-width: 899px) { .about-card-stack { display: none; } }
 
 .about-card { border-radius: 18px; padding: 26px; }
 
-.card-back {
-  position: absolute;
-  top: 12px;
-  left: 12px;
-  right: 0;
-  bottom: 0;
-  background: var(--surface2);
-  border: 1px solid rgba(79,158,248,0.12);
-  border-radius: 18px;
-  z-index: 0;
-}
+.card-back { display: none; }
+
 .card-front {
   position: relative;
-  z-index: 2;
   background: linear-gradient(145deg, var(--surface) 0%, rgba(79,158,248,0.06) 100%);
   border: 1px solid rgba(79,158,248,0.25);
-  box-shadow: 0 16px 48px rgba(0,0,0,0.5), 0 0 0 1px rgba(79,158,248,0.08);
+  box-shadow: 0 16px 48px rgba(0,0,0,0.5);
+}
+.card-front::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  top: 10px;
+  left: 10px;
+  right: -10px;
+  bottom: -10px;
+  background: var(--surface2);
+  border: 1px solid rgba(79,158,248,0.1);
+  border-radius: 18px;
+  z-index: -1;
 }
 .card-label    { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text3); margin-bottom: 7px; }
 .card-value    { font-family: var(--font-head); font-size: 1.05rem; font-weight: 700; color: var(--text); margin-bottom: 4px; }
