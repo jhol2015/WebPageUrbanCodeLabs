@@ -184,7 +184,11 @@
     river = document.getElementById('newsRiver');
     if (!river) return;
 
-    var feeds = source === 'all' ? allFeeds : allFeeds.filter(function(f) { return f.source === source; });
+    var BR_SOURCES = ['Tecnoblog','Canaltech','TechTudo','Olhar Digital','StartupsBR'];
+    var feeds = source === 'all'    ? allFeeds
+              : source === 'br'     ? allFeeds.filter(function(f){ return BR_SOURCES.indexOf(f.source) !== -1; })
+              : source === 'global' ? allFeeds.filter(function(f){ return BR_SOURCES.indexOf(f.source) === -1; })
+              : allFeeds.filter(function(f){ return f.source === source; });
     var items = [];
     feeds.forEach(function(f) {
       (f.items || []).forEach(function(i) { items.push(Object.assign({}, i, {source: f.source, color: f.color})); });

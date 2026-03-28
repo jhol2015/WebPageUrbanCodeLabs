@@ -1142,3 +1142,14 @@ a.contact-item:hover { background: var(--surface); border-color: var(--border-hi
 @media (prefers-reduced-motion: reduce) {
   .news-river { animation: none !important; }
 }
+
+/* filtros BR/Global — separadores visuais */
+.news-filter-br,
+.news-filter-sep {
+  margin-left: 6px;
+  border-color: var(--border-hi) !important;
+}
+.news-filter-br  { color: #00c97a !important; }
+.news-filter-sep { color: var(--accent) !important; }
+.news-filter-br.active  { background: #00c97a !important; border-color: #00c97a !important; color: #fff !important; }
+.news-filter-sep.active { background: var(--accent) !important; color: #fff !important; }

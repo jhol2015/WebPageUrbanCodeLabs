@@ -8,6 +8,13 @@ const PROXIES = [
 ];
 
 const FEEDS = [
+  // BR
+  { name: 'Tecnoblog',       color: '#00c97a', url: 'https://tecnoblog.net/feed/' },
+  { name: 'Canaltech',       color: '#0099e6', url: 'https://canaltech.com.br/rss/' },
+  { name: 'TechTudo',        color: '#e63946', url: 'https://www.techtudo.com.br/rss/feeds/news.xml' },
+  { name: 'Olhar Digital',   color: '#f4a522', url: 'https://olhardigital.com.br/feed/' },
+  { name: 'StartupsBR',      color: '#a78bfa', url: 'https://startupsbrasileiras.com.br/feed/' },
+  // Global
   { name: 'Hacker News',     color: '#f87171', url: 'https://news.ycombinator.com/rss' },
   { name: 'TechCrunch',      color: '#4f9ef8', url: 'https://techcrunch.com/feed/' },
   { name: 'The Verge',       color: '#7bb8ff', url: 'https://www.theverge.com/rss/index.xml' },
