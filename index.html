@@ -68,7 +68,10 @@
     }
   </style>
 
+  <link rel="prefetch" href="/api/news" as="fetch" crossorigin="anonymous" />
   <link rel="stylesheet" href="style.css" />
+  <!-- Inicia fetch da API de notícias o mais cedo possível -->
+  <script>window.__newsFetch = fetch('/api/news');</script>
 </head>
 <body>
 

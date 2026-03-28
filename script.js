@@ -165,12 +165,22 @@
     river.innerHTML = sk;
     if (err) err.style.display = 'none';
 
-    fetch('/api/news')
-      .then(function(r) { if (!r.ok) throw 0; return r.json(); })
+    // reutiliza fetch iniciado no <head> — sem esperar pelo JS
+    var _f = window.__newsFetch || fetch('/api/news');
+    window.__newsFetch = null;
+    _f.then(function(r) { if (!r.ok) throw 0; return r.json(); })
       .then(function(d) {
         if (!d.ok || !d.feeds || !d.feeds.length) throw 0;
         allFeeds = d.feeds;
         buildRiver('all');
+        // oculta filtros sem conteúdo
+        var active = d.activeSources || [];
+        document.querySelectorAll('.news-filter[data-source]').forEach(function(btn) {
+          var src = btn.getAttribute('data-source');
+          if (src === 'all' || src === 'br' || src === 'global') return;
+          if (active.indexOf(src) === -1) btn.style.display = 'none';
+        });
+
         var u = document.getElementById('newsUpdate');
         if (u) {
           var t = new Date(d.ts);
