@@ -212,9 +212,11 @@
         '</span>' +
       '</a>';
     }
+    var DIV = '<div class="nc-divider"></div>';
 
     // duplicate para loop seamless
-    var html = items.map(cardHTML).join('') + items.map(cardHTML).join('');
+    var set = items.map(cardHTML).join(DIV);
+    var html = set + DIV + set;
     river.className = 'news-river';
     river.innerHTML = html;
     river.style.setProperty('--river-x', '0px');
