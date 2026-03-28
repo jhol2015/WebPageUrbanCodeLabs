@@ -12,7 +12,7 @@ a { color: inherit; text-decoration: none; }
 button { font-family: inherit; cursor: pointer; border: none; background: none; }
 input, select, textarea { font-family: inherit; }
 
-/* ---------- TOKENS ---------- */
+/* ---------- TOKENS — DARK (padrão) ---------- */
 :root {
   --bg:           #080808;
   --bg2:          #0f0f0f;
@@ -36,7 +36,71 @@ input, select, textarea { font-family: inherit; }
   --t:            0.28s;
   --font-head:    'Syne', sans-serif;
   --font-body:    'DM Sans', sans-serif;
+  /* news card hardcoded overrides */
+  --nc-title:     #eee;
+  --nc-desc:      #888;
+  --nc-bg:        #080808;
+  --nc-bg-hover:  #1a1a1a;
 }
+
+/* ---------- TOKENS — LIGHT ---------- */
+[data-theme="light"] {
+  --bg:           #f5f5f7;
+  --bg2:          #ffffff;
+  --bg3:          #e8e8ed;
+  --surface:      #ffffff;
+  --surface2:     #e8e8ed;
+  --border:       rgba(0,0,0,0.08);
+  --border-hi:    rgba(0,0,0,0.15);
+  --text:         #1d1d1f;
+  --text2:        #515154;
+  --text3:        #86868b;
+  --accent:       #0071e3;
+  --accent2:      #0077ed;
+  --accent-glow:  rgba(0,113,227,0.18);
+  --amber:        #c47d00;
+  --amber-glow:   rgba(196,125,0,0.15);
+  --green:        #28a745;
+  --nc-title:     #1d1d1f;
+  --nc-desc:      #515154;
+  --nc-bg:        #ffffff;
+  --nc-bg-hover:  #f5f5f7;
+}
+
+/* respeita preferência do sistema se não houver escolha salva */
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme]) {
+    --bg:           #f5f5f7;
+    --bg2:          #ffffff;
+    --bg3:          #e8e8ed;
+    --surface:      #ffffff;
+    --surface2:     #e8e8ed;
+    --border:       rgba(0,0,0,0.08);
+    --border-hi:    rgba(0,0,0,0.15);
+    --text:         #1d1d1f;
+    --text2:        #515154;
+    --text3:        #86868b;
+    --accent:       #0071e3;
+    --accent2:      #0077ed;
+    --accent-glow:  rgba(0,113,227,0.18);
+    --amber:        #c47d00;
+    --amber-glow:   rgba(196,125,0,0.15);
+    --green:        #28a745;
+    --nc-title:     #1d1d1f;
+    --nc-desc:      #515154;
+    --nc-bg:        #ffffff;
+    --nc-bg-hover:  #f5f5f7;
+  }
+}
+
+/* transição suave ao trocar tema */
+*, *::before, *::after {
+  transition-property: background-color, border-color, color;
+  transition-duration: 0.25s;
+  transition-timing-function: ease;
+}
+/* mas não anima transforms e opacidade de layout */
+.reveal, .orb, .ticker, .news-river { transition-property: opacity, transform, background-color, border-color, color; }
 
 /* ---------- BASE ---------- */
 body {
@@ -1050,14 +1114,14 @@ a.contact-item:hover { background: var(--surface); border-color: var(--border-hi
   display: grid;
   grid-template-rows: auto 1fr auto;
   padding: 14px 16px;
-  background: var(--bg);
+  background: var(--nc-bg);
   border: none;
   text-decoration: none;
   transition: background var(--t);
   user-select: none;
   overflow: hidden;
 }
-.nc:hover { background: var(--surface); }
+.nc:hover { background: var(--nc-bg-hover); }
 @media (min-width: 768px) { .nc { width: 290px; } }
 
 /* linha 1: topo */
@@ -1082,7 +1146,7 @@ a.contact-item:hover { background: var(--surface); border-color: var(--border-hi
 .nc-date {
   font-size: 0.65rem;
   font-weight: 500;
-  color: #888;
+  color: var(--text3);
   white-space: nowrap;
 }
 
@@ -1106,7 +1170,7 @@ a.contact-item:hover { background: var(--surface); border-color: var(--border-hi
   font-family: var(--font-head);
   font-size: 0.85rem;
   font-weight: 700;
-  color: #eee;
+  color: var(--nc-title);
   line-height: 1.28;
   letter-spacing: -0.015em;
   margin-bottom: 5px;
@@ -1118,7 +1182,7 @@ a.contact-item:hover { background: var(--surface); border-color: var(--border-hi
 }
 .nc p {
   font-size: 0.72rem;
-  color: #888;
+  color: var(--nc-desc);
   line-height: 1.45;
   flex-shrink: 0;
   display: -webkit-box;
@@ -1195,3 +1259,102 @@ a.contact-item:hover { background: var(--surface); border-color: var(--border-hi
 .sk-w80    { width: 80%; }
 .sk-w60    { width: 60%; }
 .sk-w70    { width: 70%; }
+
+/* ============================================================
+   TEMA — TOGGLE & ACESSIBILIDADE
+   ============================================================ */
+
+/* skip link */
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 16px;
+  z-index: 9999;
+  background: var(--accent);
+  color: #fff;
+  font-size: 0.875rem;
+  font-weight: 600;
+  padding: 10px 20px;
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  transition: top 0.2s;
+}
+.skip-link:focus { top: 16px; }
+
+/* theme toggle */
+.theme-toggle {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--border-hi);
+  background: var(--surface);
+  color: var(--text2);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  transition: background var(--t), color var(--t), border-color var(--t);
+  flex-shrink: 0;
+}
+.theme-toggle:hover { background: var(--surface2); color: var(--text); border-color: var(--accent); }
+.theme-toggle:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+/* mostrar ícone correto por tema */
+[data-theme="dark"]  .icon-sun  { display: block; }
+[data-theme="dark"]  .icon-moon { display: none; }
+[data-theme="light"] .icon-sun  { display: none; }
+[data-theme="light"] .icon-moon { display: block; }
+:root:not([data-theme]) .icon-sun  { display: block; }
+:root:not([data-theme]) .icon-moon { display: none; }
+
+/* modo claro — ajustes específicos */
+[data-theme="light"] .section-dark { background: #f0f0f5; }
+[data-theme="light"] #navbar.scrolled { background: rgba(245,245,247,0.88); }
+[data-theme="light"] .hero-bg .grid-overlay {
+  background-image:
+    linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,0,0,0.04) 1px, transparent 1px);
+}
+[data-theme="light"] .orb1 { background: radial-gradient(circle, rgba(0,113,227,0.08) 0%, transparent 70%); }
+[data-theme="light"] .orb2 { background: radial-gradient(circle, rgba(0,113,227,0.05) 0%, transparent 70%); }
+[data-theme="light"] .orb3 { background: radial-gradient(circle, rgba(0,113,227,0.04) 0%, transparent 70%); }
+[data-theme="light"] .card-front { box-shadow: 0 16px 48px rgba(0,0,0,0.12); }
+[data-theme="light"] .card-back  { background: #e8e8ed; }
+[data-theme="light"] .about-card { border-color: rgba(0,0,0,0.1); }
+[data-theme="light"] .hero-title em { background: linear-gradient(135deg, #0071e3, #0099ff); -webkit-background-clip: text; background-clip: text; }
+[data-theme="light"] .badge-dot { box-shadow: 0 0 7px #28a745; }
+[data-theme="light"] .whatsapp-float { box-shadow: 0 6px 28px rgba(37,211,102,0.28); }
+[data-theme="light"] .project-blue { background: linear-gradient(145deg, #fff 0%, rgba(0,113,227,0.04) 100%); }
+[data-theme="light"] .project-amber { background: linear-gradient(145deg, #fff 0%, rgba(196,125,0,0.04) 100%); }
+[data-theme="light"] .cta-band {
+  background: linear-gradient(135deg, rgba(0,113,227,0.06) 0%, rgba(0,113,227,0.02) 100%);
+  border-color: rgba(0,113,227,0.12);
+}
+[data-theme="light"] ::-webkit-scrollbar-track { background: #f5f5f7; }
+[data-theme="light"] ::-webkit-scrollbar-thumb { background: #c7c7cc; }
+[data-theme="light"] .news-river-wrap::before { background: linear-gradient(to right, #fff 10%, transparent); }
+[data-theme="light"] .news-river-wrap::after  { background: linear-gradient(to left,  #fff 10%, transparent); }
+[data-theme="light"] .news-ticker-wrap { background: #0071e3; }
+
+/* acessibilidade — focus ring global */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+/* remover outline padrão do mouse — manter para teclado */
+:focus:not(:focus-visible) { outline: none; }
+
+/* reduzir movimento */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .reveal { opacity: 1 !important; transform: none !important; }
+}
+
+/* alto contraste */
+@media (forced-colors: active) {
+  .btn-primary { border: 2px solid ButtonText; }
+  .nav-cta     { border: 2px solid ButtonText; }
+  .service-icon { border: 1px solid ButtonText; }
+}

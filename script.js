@@ -5,6 +5,38 @@
 (function () {
   'use strict';
 
+  /* ---------- TEMA ---------- */
+  var html = document.documentElement;
+
+  // carrega preferência salva ou usa preferência do sistema
+  var savedTheme = localStorage.getItem('ucl-theme');
+  if (savedTheme) {
+    html.setAttribute('data-theme', savedTheme);
+  } else {
+    var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    html.setAttribute('data-theme', prefersDark ? 'dark' : 'light');
+  }
+
+  var themeBtn = document.getElementById('themeToggle');
+  if (themeBtn) {
+    themeBtn.addEventListener('click', function () {
+      var current = html.getAttribute('data-theme');
+      var next = current === 'dark' ? 'light' : 'dark';
+      html.setAttribute('data-theme', next);
+      localStorage.setItem('ucl-theme', next);
+      themeBtn.setAttribute('aria-label',
+        next === 'dark' ? 'Alternar para modo claro' : 'Alternar para modo escuro'
+      );
+    });
+  }
+
+  // ouvir mudança de preferência do sistema (se usuário não tiver escolha salva)
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
+    if (!localStorage.getItem('ucl-theme')) {
+      html.setAttribute('data-theme', e.matches ? 'dark' : 'light');
+    }
+  });
+
   /* ---------- NAV SCROLL ---------- */
   var navbar = document.getElementById('navbar');
   function onScroll() {
