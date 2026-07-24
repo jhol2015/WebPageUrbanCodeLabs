@@ -69,8 +69,10 @@ async function fetchRSS(feed) {
     try {
       const res=await attempt();
       if (!res.ok) continue;
-      const text=await res.text();
-      if (!text||text.trim().startsWith('{')) continue;
+      const raw=await res.text();
+      if (!raw||raw.trim().startsWith('{')) continue;
+      // limita o parsing (proteção contra payload gigante de fonte/proxy hostil)
+      const text=raw.length>500000 ? raw.slice(0,500000) : raw;
       const items=extractItems(text,5);
       if (items.length) return {source:feed.name,color:feed.color,items};
     } catch { continue; }
@@ -116,7 +118,7 @@ export default async function handler() {
     headers: {
       'Content-Type': 'application/json',
       'Cache-Control': 'public, s-maxage=3600, stale-while-revalidate=86400',
-      'Access-Control-Allow-Origin': 'same-origin',
+      'X-Content-Type-Options': 'nosniff',
     },
   });
 }

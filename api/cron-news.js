@@ -40,7 +40,9 @@ export default async function handler(req) {
       },
     });
   } catch (err) {
-    return new Response(JSON.stringify({ ok: false, error: String(err) }), {
+    // loga internamente, mas não expõe detalhes ao chamador
+    console.error('cron-news falhou:', err);
+    return new Response(JSON.stringify({ ok: false, error: 'Falha ao atualizar o feed' }), {
       status: 500,
       headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' },
     });
