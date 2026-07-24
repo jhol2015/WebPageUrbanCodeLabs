@@ -241,6 +241,19 @@ body {
   align-items: center;
   gap: 10px;
 }
+.logo-mark { display: flex; align-items: center; }
+.logo-img {
+  display: block;
+  height: 30px;
+  width: auto;
+  object-fit: contain;
+}
+.footer .logo-img { height: 26px; }
+/* no tema claro os traços prateados da marca somem no branco — contorno sutil */
+[data-theme="light"] .logo-img {
+  filter: drop-shadow(0 0 0.6px rgba(15, 23, 42, 0.65))
+          drop-shadow(0 1px 1.5px rgba(15, 23, 42, 0.30));
+}
 .logo-text {
   font-family: var(--font-head);
   font-weight: 700;
