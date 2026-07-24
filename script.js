@@ -311,6 +311,10 @@
     }
   }, { once: true });
 
+  // botão "Tentar novamente" (bind aqui — loadNews não é global; substitui onclick inline p/ CSP)
+  var retryBtn = document.getElementById('newsRetry');
+  if (retryBtn) retryBtn.addEventListener('click', loadNews);
+
   // filtros
   document.querySelectorAll('.news-filter').forEach(function(btn) {
     btn.addEventListener('click', function() {

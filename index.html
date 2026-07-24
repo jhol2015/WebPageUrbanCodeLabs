@@ -69,6 +69,8 @@
   </style>
 
   <!-- Anti-flash: aplica tema antes do CSS carregar -->
+  <!-- ⚠ CSP: este script é autorizado por hash SHA-256 no vercel.json.
+       Ao editar o conteúdo abaixo, recalcule o hash (script-src) senão ele não executa. -->
   <script>
     (function(){
       var t=localStorage.getItem('ucl-theme');
@@ -80,6 +82,7 @@
   <link rel="prefetch" href="/api/news" as="fetch" crossorigin="anonymous" />
   <link rel="stylesheet" href="style.css" />
   <!-- Inicia fetch da API de notícias o mais cedo possível -->
+  <!-- ⚠ CSP: autorizado por hash SHA-256 no vercel.json — recalcule o hash se editar. -->
   <script>window.__newsFetch = fetch('/api/news');</script>
 </head>
 <body>
@@ -488,7 +491,7 @@
         </div>
         <div class="news-err" id="newsErr" style="display:none">
           <p>Não foi possível carregar as notícias.</p>
-          <button class="btn-ghost" onclick="loadNews()">Tentar novamente</button>
+          <button class="btn-ghost" id="newsRetry">Tentar novamente</button>
         </div>
         <p class="news-foot-sources">🇧🇷 Tecnoblog · Canaltech · TechTudo · Olhar Digital &nbsp;·&nbsp; 🌐 Hacker News · TechCrunch · The Verge · Wired · MIT Technology Review · Ars Technica</p>
       </div>
