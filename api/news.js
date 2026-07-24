@@ -29,6 +29,11 @@ function decode(s) {
     .replace(/<[^>]+>/g,'').trim();
 }
 
+function safeUrl(u) {
+  // aceita apenas http/https — bloqueia javascript:, data:, etc.
+  return /^https?:\/\//i.test(u || '') ? u : '';
+}
+
 function parseDate(s) {
   if (!s) return '';
   try { const d=new Date(s); return isNaN(d)?'':d.toLocaleDateString('pt-BR',{day:'2-digit',month:'short',year:'numeric'}); }
@@ -41,11 +46,11 @@ function extractItems(xml, limit=5) {
   while ((m=re.exec(xml))!==null && items.length<limit) {
     const b=m[1]||m[2];
     const title=decode((/<title[^>]*>([\s\S]*?)<\/title>/i.exec(b)||[])[1]);
-    const link=decode(
+    const link=safeUrl(decode(
       (/<link[^>]*href="([^"]+)"/i.exec(b)||
        /<link[^>]*>\s*(https?:\/\/[^\s<]+)\s*<\/link>/i.exec(b)||
        /<guid[^>]*>\s*(https?:\/\/[^\s<]+)\s*<\/guid>/i.exec(b)||[])[1]
-    );
+    ));
     const desc=decode((/<description[^>]*>([\s\S]*?)<\/description>/i.exec(b)||/<summary[^>]*>([\s\S]*?)<\/summary>/i.exec(b)||[])[1]).slice(0,140);
     const pubDate=parseDate((/<pubDate[^>]*>([\s\S]*?)<\/pubDate>/i.exec(b)||/<published[^>]*>([\s\S]*?)<\/published>/i.exec(b)||/<updated[^>]*>([\s\S]*?)<\/updated>/i.exec(b)||[])[1]);
     if (title&&link) items.push({title,link,desc,pubDate});

@@ -9,8 +9,10 @@ export default async function handler(req) {
   const authHeader = req.headers.get('authorization');
   const cronSecret = typeof CRON_SECRET !== 'undefined' ? CRON_SECRET : '';
 
-  // Aceita: chamada de cron da Vercel OU autorização manual com secret
-  if (!isCron && cronSecret && authHeader !== 'Bearer ' + cronSecret) {
+  // Aceita: chamada de cron da Vercel OU autorização manual com secret.
+  // Falha fechado: se não for cron e o secret não estiver configurado
+  // (ou não bater), rejeita — nunca deixa o endpoint aberto.
+  if (!isCron && (!cronSecret || authHeader !== 'Bearer ' + cronSecret)) {
     return new Response('Unauthorized', { status: 401 });
   }
 

@@ -181,6 +181,8 @@
   var SPEED = 0.5; // px por frame (~30px/s a 60fps)
 
   function esc(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+  // aceita apenas http/https — bloqueia javascript:, data: e outros esquemas perigosos no href
+  function safeUrl(u) { return /^https?:\/\//i.test(String(u||'')) ? u : '#'; }
   function rgba(h, a) {
     var r=parseInt(h.slice(1,3),16), g=parseInt(h.slice(3,5),16), b=parseInt(h.slice(5,7),16);
     return 'rgba('+r+','+g+','+b+','+a+')';
@@ -253,7 +255,7 @@
     // build card HTML
     function cardHTML(item) {
       var bc = rgba(item.color, 0.11), bd = rgba(item.color, 0.26);
-      return '<a class="nc" href="'+esc(item.link)+'" target="_blank" rel="noopener noreferrer" draggable="false">' +
+      return '<a class="nc" href="'+esc(safeUrl(item.link))+'" target="_blank" rel="noopener noreferrer" draggable="false">' +
         '<div class="nc-top">' +
           '<span class="nc-badge" style="color:'+item.color+';background:'+bc+';border-color:'+bd+'">'+esc(item.source)+'</span>' +
           (item.pubDate ? '<span class="nc-date">'+esc(item.pubDate)+'</span>' : '') +
