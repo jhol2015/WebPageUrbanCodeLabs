@@ -327,12 +327,13 @@
   loadNews();
 })();
 
-/* ---- CARROSSEL DOS CARDS EM PASSOS (serviços + projetos) ----
-   Desliza 1 card, dá uma pausa (sleep), desliza o próximo, em loop. */
+/* ---- CARROSSEL DOS CARDS: passos com pausa (sleep) + arraste manual ---- */
 (function () {
-  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var HOLD = 2600;  // ms parado entre uma passada e outra (o "sleep")
   var MOVE = 750;   // ms de deslizamento de cada passada
+
+  function easeInOut(k) { return k < 0.5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2; }
 
   function build(grid) {
     if (!grid || !grid.children.length) return;
@@ -342,19 +343,16 @@
     var originals = Array.prototype.slice.call(grid.children);
     originals.forEach(function (card) { card.classList.remove('reveal'); card.classList.add('visible'); });
 
-    // wrapper com overflow + máscara (fade nas bordas)
     var wrap = document.createElement('div');
     wrap.className = 'cards-marquee';
     grid.parentNode.insertBefore(wrap, grid);
     wrap.appendChild(grid);
     grid.classList.add('is-marquee');
 
-    var N = originals.length;
     var cs = getComputedStyle(grid);
     var gap = parseFloat(cs.columnGap || cs.gap) || 0;
-    var cardW = originals[0].getBoundingClientRect().width;
-    var step = cardW + gap;                 // distância de uma passada (1 card)
-    var period = N * step;                  // volta ao início após N passadas (loop seamless)
+    var step = originals[0].getBoundingClientRect().width + gap; // 1 passada = 1 card
+    var period = originals.length * step;                        // loop seamless
     var containerW = wrap.clientWidth || 1000;
 
     // clona o conjunto até preencher o container mesmo no ponto mais deslocado
@@ -368,21 +366,62 @@
       guard++;
     }
 
-    // keyframes: para em -i*step, desliza até -(i+1)*step, para de novo...
-    var slot = HOLD + MOVE;
-    var moveFrac = MOVE / slot;
-    var kf = [];
-    for (var i = 0; i < N; i++) {
-      var base = i / N;
-      kf.push({ transform: 'translateX(' + (-i * step) + 'px)', offset: base });
-      kf.push({ transform: 'translateX(' + (-i * step) + 'px)', offset: base + (1 - moveFrac) / N, easing: 'cubic-bezier(0.65,0,0.35,1)' });
-    }
-    kf.push({ transform: 'translateX(' + (-period) + 'px)', offset: 1 });
+    var pos = 0; // translateX atual (<= 0)
+    function wrapPos() { while (pos <= -period) pos += period; while (pos > 0) pos -= period; }
+    function apply() { grid.style.transform = 'translateX(' + pos + 'px)'; }
+    apply();
 
-    var anim = grid.animate(kf, { duration: N * slot, iterations: Infinity });
-    // pausa ao passar o mouse (desktop)
-    wrap.addEventListener('mouseenter', function () { anim.pause(); });
-    wrap.addEventListener('mouseleave', function () { anim.play(); });
+    // ---------- auto: passo + sleep (baseado em tempo acumulado, pausável) ----------
+    var state = 'hold', holdMs = 0, moveMs = 0, from = 0, target = 0;
+    var dragging = false, hovering = false, last = 0;
+    function frame(t) {
+      var dt = last ? Math.min(t - last, 50) : 0; last = t;
+      var active = !dragging && !hovering && !reduce;
+      if (active) {
+        if (state === 'hold') {
+          holdMs += dt;
+          if (holdMs >= HOLD) { state = 'move'; moveMs = 0; from = pos; target = Math.round(pos / step) * step - step; }
+        } else {
+          moveMs += dt;
+          var k = Math.min(1, moveMs / MOVE);
+          pos = from + (target - from) * easeInOut(k);
+          if (k >= 1) { pos = target; state = 'hold'; holdMs = 0; }
+        }
+        wrapPos(); apply();
+      }
+      requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+
+    // ---------- pausa no hover ----------
+    wrap.addEventListener('mouseenter', function () { hovering = true; });
+    wrap.addEventListener('mouseleave', function () { hovering = false; state = 'hold'; holdMs = 0; });
+
+    // ---------- arraste (mouse + touch via Pointer Events) ----------
+    var startX = 0, startPos = 0;
+    wrap.addEventListener('pointerdown', function (e) {
+      dragging = true; startX = e.clientX; startPos = pos;
+      wrap.classList.add('grabbing');
+      try { wrap.setPointerCapture(e.pointerId); } catch (_) {}
+    });
+    wrap.addEventListener('pointermove', function (e) {
+      if (!dragging) return;
+      pos = startPos + (e.clientX - startX);
+      while (pos <= -period) { pos += period; startPos += period; }
+      while (pos > 0) { pos -= period; startPos -= period; }
+      apply();
+    });
+    function endDrag(e) {
+      if (!dragging) return;
+      dragging = false;
+      wrap.classList.remove('grabbing');
+      try { wrap.releasePointerCapture(e.pointerId); } catch (_) {}
+      pos = Math.round(pos / step) * step; // encaixa no card mais próximo
+      wrapPos(); apply();
+      state = 'hold'; holdMs = 0;          // retoma o auto após novo sleep
+    }
+    wrap.addEventListener('pointerup', endDrag);
+    wrap.addEventListener('pointercancel', endDrag);
   }
 
   function init() {
