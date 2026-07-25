@@ -7,13 +7,13 @@ var UCL_LANG = (document.documentElement.lang || 'pt').slice(0, 2).toLowerCase()
 var UCL_LOCALE = UCL_LANG === 'en' ? 'en-US' : 'pt-BR';
 var UCL_T = {
   pt: {
-    sending: 'Enviando...', sent: '✓ Mensagem Enviada!', send: 'Enviar Mensagem',
+    sending: 'Enviando...', sent: '✓ Mensagem Enviada!', send: 'Enviar Mensagem', errorSend: 'Erro ao enviar. Tente novamente.',
     fillRequired: 'Por favor, preencha os campos obrigatórios: Nome, E-mail e Mensagem.',
     waIntro: 'Olá! Vim pelo site da Urban Code Labs.', waName: 'Nome', waEmail: 'E-mail', waProject: 'Projeto', waMessage: 'Mensagem',
     newsRead: 'Ler', newsEmpty: 'Sem notícias no momento.', newsUpdated: 'Atualizado'
   },
   en: {
-    sending: 'Sending...', sent: '✓ Message sent!', send: 'Send Message',
+    sending: 'Sending...', sent: '✓ Message sent!', send: 'Send Message', errorSend: 'Failed to send. Please try again.',
     fillRequired: 'Please fill in the required fields: Name, E-mail and Message.',
     waIntro: 'Hi! I came from the Urban Code Labs website.', waName: 'Name', waEmail: 'E-mail', waProject: 'Project', waMessage: 'Message',
     newsRead: 'Read', newsEmpty: 'No news at the moment.', newsUpdated: 'Updated'
@@ -147,7 +147,7 @@ var UCL_L = UCL_T[UCL_LANG];
     });
   }, { passive: true });
 
-  /* ---------- CONTACT FORM ---------- */
+  /* ---------- CONTACT FORM (envia e-mail via /api/contact; fallback WhatsApp) ---------- */
   var form = document.getElementById('contactForm');
   if (form) {
     form.addEventListener('submit', function (e) {
@@ -156,7 +156,8 @@ var UCL_L = UCL_T[UCL_LANG];
       var nome     = form.nome.value.trim();
       var email    = form.email.value.trim();
       var mensagem = form.mensagem.value.trim();
-      var tipo     = form.tipo.value;
+      var tipoText = form.tipo.value ? form.tipo.options[form.tipo.selectedIndex].text : '';
+      var website  = form.website ? form.website.value : ''; // honeypot
 
       if (!nome || !email || !mensagem) {
         alert(UCL_L.fillRequired);
@@ -168,26 +169,33 @@ var UCL_L = UCL_T[UCL_LANG];
       btn.disabled = true;
       btn.style.opacity = '0.7';
 
-      /* Compose WhatsApp message */
-      var msg = UCL_L.waIntro + '\n\n'
-        + '*' + UCL_L.waName + ':* ' + nome + '\n'
-        + '*' + UCL_L.waEmail + ':* ' + email + '\n'
-        + (tipo ? '*' + UCL_L.waProject + ':* ' + form.tipo.options[form.tipo.selectedIndex].text + '\n' : '')
-        + '*' + UCL_L.waMessage + ':* ' + mensagem;
+      function done() {
+        btn.textContent = UCL_L.sent; btn.style.background = 'var(--green)'; btn.style.opacity = '1';
+        form.reset();
+        setTimeout(function () { btn.textContent = UCL_L.send; btn.disabled = false; btn.style.background = ''; }, 2600);
+      }
+      function whatsappFallback() {
+        var msg = UCL_L.waIntro + '\n\n'
+          + '*' + UCL_L.waName + ':* ' + nome + '\n'
+          + '*' + UCL_L.waEmail + ':* ' + email + '\n'
+          + (tipoText ? '*' + UCL_L.waProject + ':* ' + tipoText + '\n' : '')
+          + '*' + UCL_L.waMessage + ':* ' + mensagem;
+        window.open('https://wa.me/5562981972706?text=' + encodeURIComponent(msg), '_blank');
+        done();
+      }
 
-      setTimeout(function () {
-        btn.textContent = UCL_L.sent;
-        btn.style.background = 'var(--green)';
-        btn.style.opacity = '1';
-
-        setTimeout(function () {
-          window.open('https://wa.me/5562981972706?text=' + encodeURIComponent(msg), '_blank');
-          btn.textContent = UCL_L.send;
-          btn.disabled = false;
-          btn.style.background = '';
-          form.reset();
-        }, 1600);
-      }, 900);
+      fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ nome: nome, email: email, tipo: tipoText, mensagem: mensagem, website: website })
+      }).then(function (r) {
+        return r.json().then(function (d) { return { ok: r.ok, d: d }; }).catch(function () { return { ok: r.ok, d: {} }; });
+      }).then(function (res) {
+        if (res.ok && res.d && res.d.ok) done();  // e-mail enviado
+        else whatsappFallback();                  // não configurado / falhou -> WhatsApp
+      }).catch(function () {
+        whatsappFallback();                        // erro de rede -> WhatsApp
+      });
     });
   }
 
