@@ -19,7 +19,7 @@
         },
         {
           "key": "Content-Security-Policy",
-          "value": "default-src 'none'; script-src 'self' 'sha256-rczZc+iGSw0wwvZoG1TJPOnEJ16Gln/WvALIUwm9NKE=' 'sha256-xk+2XUaZdqbtYA+IQW6TL30xpkARFdeJ5XFZprmIPKM='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; manifest-src 'self'; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none'; navigate-to 'self' https://wa.me; upgrade-insecure-requests; block-all-mixed-content"
+          "value": "default-src 'none'; script-src 'self' 'sha256-rczZc+iGSw0wwvZoG1TJPOnEJ16Gln/WvALIUwm9NKE=' 'sha256-xk+2XUaZdqbtYA+IQW6TL30xpkARFdeJ5XFZprmIPKM='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; manifest-src 'self'; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none'; navigate-to 'self' https://wa.me https://app.urbancodelabs.com.br; upgrade-insecure-requests; block-all-mixed-content"
         },
         {
           "key": "X-Content-Type-Options",

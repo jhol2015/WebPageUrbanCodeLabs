@@ -398,19 +398,22 @@
     wrap.addEventListener('mouseleave', function () { hovering = false; state = 'hold'; holdMs = 0; });
 
     // ---------- arraste (mouse + touch via Pointer Events) ----------
-    var startX = 0, startPos = 0;
+    var startX = 0, startPos = 0, moved = false;
     wrap.addEventListener('pointerdown', function (e) {
-      dragging = true; startX = e.clientX; startPos = pos;
+      dragging = true; moved = false; startX = e.clientX; startPos = pos;
       wrap.classList.add('grabbing');
       try { wrap.setPointerCapture(e.pointerId); } catch (_) {}
     });
     wrap.addEventListener('pointermove', function (e) {
       if (!dragging) return;
+      if (Math.abs(e.clientX - startX) > 6) moved = true;
       pos = startPos + (e.clientX - startX);
       while (pos <= -period) { pos += period; startPos += period; }
       while (pos > 0) { pos -= period; startPos -= period; }
       apply();
     });
+    // se houve arraste, cancela o clique (não abre link acidentalmente)
+    wrap.addEventListener('click', function (e) { if (moved) { e.preventDefault(); e.stopPropagation(); } }, true);
     function endDrag(e) {
       if (!dragging) return;
       dragging = false;

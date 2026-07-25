@@ -803,6 +803,24 @@ body {
   flex-wrap: wrap;
   margin-top: auto;
 }
+/* link "Acessar plataforma" (card Mentora) */
+.project-cta {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #a78bfa;
+  text-decoration: none;
+  transition: gap var(--t) var(--ease), color var(--t) var(--ease);
+}
+.project-cta svg { transition: transform var(--t) var(--ease); }
+.project-cta:hover { gap: 10px; color: #c4b5fd; }
+.project-cta:hover svg { transform: translate(2px, -2px); }
+[data-theme="light"] .project-cta { color: #6d28d9; }
+[data-theme="light"] .project-cta:hover { color: #5b21b6; }
 .project-stack li {
   font-size: 0.7rem;
   font-weight: 500;
