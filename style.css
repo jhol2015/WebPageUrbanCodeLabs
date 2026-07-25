@@ -581,6 +581,31 @@ body {
   gap: 5px;
   flex-wrap: wrap;
 }
+
+/* ---- CARROSSEL INFINITO DAS TAGS (serviços + projetos) — ativado via JS ---- */
+.tag-marquee {
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 16px, #000 calc(100% - 16px), transparent 100%);
+          mask-image: linear-gradient(90deg, transparent 0, #000 16px, #000 calc(100% - 16px), transparent 100%);
+}
+.tag-marquee:has(> .project-stack) { margin-top: auto; }
+.tag-marquee > .service-tags,
+.tag-marquee > .project-stack {
+  flex-wrap: nowrap;
+  width: max-content;
+  margin-top: 0;
+  animation: tag-scroll var(--dur, 20s) linear infinite;
+  will-change: transform;
+}
+.tag-marquee > .service-tags > li,
+.tag-marquee > .project-stack > li { flex: 0 0 auto; white-space: nowrap; }
+.tag-marquee:hover > .service-tags,
+.tag-marquee:hover > .project-stack { animation-play-state: paused; }
+@keyframes tag-scroll { to { transform: translateX(calc(-1 * var(--shift, 50%))); } }
+@media (prefers-reduced-motion: reduce) {
+  .tag-marquee > .service-tags,
+  .tag-marquee > .project-stack { animation: none; transform: none; }
+}
 .service-tags li {
   font-size: 0.68rem;
   font-weight: 500;

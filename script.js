@@ -326,3 +326,47 @@
 
   loadNews();
 })();
+
+/* ---- CARROSSEL INFINITO DAS TAGS (serviços + projetos) ---- */
+(function () {
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var SPEED = 22; // px por segundo
+
+  function build(ul) {
+    if (!ul || !ul.children.length || ul.parentNode.classList.contains('tag-marquee')) return;
+    var originals = Array.prototype.slice.call(ul.children);
+
+    // wrapper com overflow + máscara (fade nas bordas)
+    var wrap = document.createElement('div');
+    wrap.className = 'tag-marquee';
+    ul.parentNode.insertBefore(wrap, ul);
+    wrap.appendChild(ul);
+
+    var cs = getComputedStyle(ul);
+    var gap = parseFloat(cs.columnGap || cs.gap) || 0;
+    var setW = ul.scrollWidth;              // largura de 1 conjunto (antes de clonar)
+    var period = setW + gap;                // 1 conjunto + o gap até o próximo
+    var containerW = wrap.clientWidth || 260;
+
+    // clona conjuntos até haver conteúdo suficiente p/ preencher após deslocar 1 período
+    var guard = 0;
+    while (ul.scrollWidth < containerW + period + 40 && guard < 12) {
+      originals.forEach(function (li) {
+        var c = li.cloneNode(true);
+        c.setAttribute('aria-hidden', 'true');
+        ul.appendChild(c);
+      });
+      guard++;
+    }
+
+    ul.style.setProperty('--shift', period + 'px');
+    ul.style.setProperty('--dur', Math.max(6, period / SPEED) + 's');
+  }
+
+  function init() {
+    document.querySelectorAll('.service-tags, .project-stack').forEach(build);
+  }
+  // mede após as webfonts carregarem (evita emenda por mudança de largura)
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(init);
+  else init();
+})();
