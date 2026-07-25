@@ -1438,6 +1438,12 @@ a.contact-item:hover { background: var(--surface); border-color: var(--border-hi
 .theme-toggle:hover { background: var(--surface2); color: var(--text); border-color: var(--accent); }
 .theme-toggle:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 
+/* agrupa idioma + tema colados no canto direito (mobile e desktop) */
+.nav-links   { margin-left: 28px; }
+.lang-switch { margin-left: auto; }
+.theme-toggle { margin-left: 8px; }
+.hamburger   { margin-left: 8px; }
+
 /* mostrar ícone correto por tema */
 [data-theme="dark"]  .icon-sun  { display: block; }
 [data-theme="dark"]  .icon-moon { display: none; }
