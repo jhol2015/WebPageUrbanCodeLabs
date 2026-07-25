@@ -1799,3 +1799,65 @@ a.contact-item:hover { background: var(--surface); border-color: var(--border-hi
 /* ícones maiores e mais presentes em ambos os temas */
 .service-icon svg { width: 26px; height: 26px; }
 [data-theme="light"] .service-icon svg { width: 26px; height: 26px; stroke-width: 1.4; }
+
+/* ---- PÁGINA "PARA O SETOR PÚBLICO" ---- */
+.sp-hero { max-width: 720px; }
+.sp-hero .section-tag { margin-bottom: 18px; }
+.sp-hero .hero-title { margin-bottom: 22px; }
+.sp-lead {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: var(--text2);
+  max-width: 660px;
+  margin-bottom: 28px;
+}
+.sp-spotlight {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+  align-items: start;
+}
+@media (min-width: 860px) { .sp-spotlight { grid-template-columns: 1.1fr 0.9fr; gap: 48px; } }
+.sp-spotlight-text .sp-lead { margin-bottom: 24px; }
+.sp-spotlight-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px 26px;
+}
+.sp-spotlight-list li {
+  position: relative;
+  padding-left: 24px;
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: var(--text2);
+}
+.sp-spotlight-list li::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 7px;
+  width: 8px; height: 8px;
+  border-radius: 2px;
+  background: var(--accent);
+}
+.sp-facts {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+  margin: 26px 0 30px;
+}
+@media (min-width: 720px) { .sp-facts { grid-template-columns: repeat(3, 1fr); gap: 24px; } }
+.sp-fact { display: flex; gap: 12px; align-items: flex-start; }
+.sp-fact-icon { color: var(--accent); font-size: 1rem; line-height: 1.4; flex-shrink: 0; }
+.sp-fact strong { display: block; color: var(--text); font-size: 0.95rem; margin-bottom: 4px; letter-spacing: -0.01em; }
+.sp-fact span { color: var(--text2); font-size: 0.86rem; line-height: 1.5; }
+[data-theme="light"] .sp-lead,
+[data-theme="light"] .sp-spotlight-list li,
+[data-theme="light"] .sp-fact span { color: #475569; }
+[data-theme="light"] .sp-fact strong { color: #0f172a; }
+[data-theme="light"] .sp-fact-icon { color: #1d6fce; }
+[data-theme="light"] .sp-spotlight-list { background: #fff; border-color: rgba(15,23,42,0.08); box-shadow: 0 2px 20px rgba(15,23,42,0.05); }
+[data-theme="light"] .sp-spotlight-list li::before { background: #1d6fce; }
