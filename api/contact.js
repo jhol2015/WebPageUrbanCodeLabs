@@ -30,6 +30,44 @@ function fromSite(v) {
       || /^https:\/\/[a-z0-9-]+\.vercel\.app$/i.test(v);
 }
 
+// Rate-limit por IP + teto global diário via Upstash Redis (REST, server-side).
+// Fail-open: se o Upstash não estiver configurado ou estiver fora do ar, libera.
+// Não derrubamos o único canal de contato por causa de uma dependência externa.
+const RL_IP_MAX = 5;         // no máximo 5 envios por IP...
+const RL_IP_WINDOW = 3600;   // ...a cada 1 hora
+const RL_DAY_MAX = 80;       // teto global por dia (protege a cota grátis do Resend)
+
+async function rateLimit(ip) {
+  const url = env('UPSTASH_REDIS_REST_URL');
+  const token = env('UPSTASH_REDIS_REST_TOKEN');
+  if (!url || !token) return { ok: true }; // não configurado -> libera
+
+  const ipKey = 'rl:contact:ip:' + ip;
+  const dayKey = 'rl:contact:day';
+  try {
+    const r = await fetch(url.replace(/\/+$/, '') + '/pipeline', {
+      method: 'POST',
+      headers: { 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' },
+      body: JSON.stringify([
+        ['INCR', ipKey],
+        ['EXPIRE', ipKey, String(RL_IP_WINDOW), 'NX'],
+        ['INCR', dayKey],
+        ['EXPIRE', dayKey, '86400', 'NX'],
+      ]),
+      signal: AbortSignal.timeout(2000),
+    });
+    if (!r.ok) return { ok: true }; // Upstash indisponível -> libera
+    const out = await r.json();
+    const ipCount = (out && out[0] && typeof out[0].result === 'number') ? out[0].result : 0;
+    const dayCount = (out && out[2] && typeof out[2].result === 'number') ? out[2].result : 0;
+    if (ipCount > RL_IP_MAX) return { ok: false, scope: 'ip' };
+    if (dayCount > RL_DAY_MAX) return { ok: false, scope: 'day' };
+    return { ok: true };
+  } catch (e) {
+    return { ok: true }; // timeout/erro de rede -> libera
+  }
+}
+
 export default async function handler(req) {
   if (req.method !== 'POST') return json({ ok: false, error: 'method' }, 405);
 
@@ -63,6 +101,11 @@ export default async function handler(req) {
 
   if (!nome || !email || !mensagem) return json({ ok: false, error: 'required' }, 400);
   if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return json({ ok: false, error: 'email' }, 400);
+
+  // rate-limit só depois de validar (bots com payload inválido não gastam a cota)
+  const ip = (req.headers.get('x-forwarded-for') || req.headers.get('x-real-ip') || 'unknown').split(',')[0].trim() || 'unknown';
+  const rl = await rateLimit(ip);
+  if (!rl.ok) return json({ ok: false, error: 'rate' }, 429);
 
   const html =
     '<h2 style="margin:0 0 12px">Novo contato pelo site</h2>' +
