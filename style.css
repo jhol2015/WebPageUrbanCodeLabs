@@ -584,17 +584,10 @@ body {
   align-items: stretch;
   width: max-content;
   gap: 20px;
-  animation: cards-scroll var(--dur, 40s) linear infinite;
   will-change: transform;
 }
 .services-grid.is-marquee > .service-card { flex: 0 0 min(86vw, 340px); }
 .projects-grid.is-marquee > .project-card { flex: 0 0 min(90vw, 480px); }
-.cards-marquee:hover .is-marquee { animation-play-state: paused; }
-@keyframes cards-scroll { to { transform: translateX(calc(-1 * var(--shift, 50%))); } }
-@media (prefers-reduced-motion: reduce) {
-  .services-grid.is-marquee,
-  .projects-grid.is-marquee { animation: none; }
-}
 .service-tags li {
   font-size: 0.68rem;
   font-weight: 500;

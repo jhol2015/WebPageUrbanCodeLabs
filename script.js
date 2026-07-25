@@ -327,10 +327,12 @@
   loadNews();
 })();
 
-/* ---- CARROSSEL INFINITO DOS CARDS (serviços + projetos) ---- */
+/* ---- CARROSSEL DOS CARDS EM PASSOS (serviços + projetos) ----
+   Desliza 1 card, dá uma pausa (sleep), desliza o próximo, em loop. */
 (function () {
   if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  var SPEED = 42; // px por segundo
+  var HOLD = 2600;  // ms parado entre uma passada e outra (o "sleep")
+  var MOVE = 750;   // ms de deslizamento de cada passada
 
   function build(grid) {
     if (!grid || !grid.children.length) return;
@@ -347,13 +349,15 @@
     wrap.appendChild(grid);
     grid.classList.add('is-marquee');
 
+    var N = originals.length;
     var cs = getComputedStyle(grid);
     var gap = parseFloat(cs.columnGap || cs.gap) || 0;
-    var setW = grid.scrollWidth;            // largura de 1 conjunto (antes de clonar)
-    var period = setW + gap;                // 1 conjunto + o gap até o próximo
+    var cardW = originals[0].getBoundingClientRect().width;
+    var step = cardW + gap;                 // distância de uma passada (1 card)
+    var period = N * step;                  // volta ao início após N passadas (loop seamless)
     var containerW = wrap.clientWidth || 1000;
 
-    // clona o conjunto até haver conteúdo suficiente p/ preencher após deslocar 1 período
+    // clona o conjunto até preencher o container mesmo no ponto mais deslocado
     var guard = 0;
     while (grid.scrollWidth < containerW + period + 60 && guard < 8) {
       originals.forEach(function (card) {
@@ -364,8 +368,21 @@
       guard++;
     }
 
-    grid.style.setProperty('--shift', period + 'px');
-    grid.style.setProperty('--dur', Math.max(20, period / SPEED) + 's');
+    // keyframes: para em -i*step, desliza até -(i+1)*step, para de novo...
+    var slot = HOLD + MOVE;
+    var moveFrac = MOVE / slot;
+    var kf = [];
+    for (var i = 0; i < N; i++) {
+      var base = i / N;
+      kf.push({ transform: 'translateX(' + (-i * step) + 'px)', offset: base });
+      kf.push({ transform: 'translateX(' + (-i * step) + 'px)', offset: base + (1 - moveFrac) / N, easing: 'cubic-bezier(0.65,0,0.35,1)' });
+    }
+    kf.push({ transform: 'translateX(' + (-period) + 'px)', offset: 1 });
+
+    var anim = grid.animate(kf, { duration: N * slot, iterations: Infinity });
+    // pausa ao passar o mouse (desktop)
+    wrap.addEventListener('mouseenter', function () { anim.pause(); });
+    wrap.addEventListener('mouseleave', function () { anim.play(); });
   }
 
   function init() {
