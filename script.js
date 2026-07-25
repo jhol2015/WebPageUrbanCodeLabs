@@ -2,6 +2,25 @@
    URBAN CODE LABS — script.js
    ============================================================ */
 
+/* ---------- i18n (textos dinâmicos por idioma) ---------- */
+var UCL_LANG = (document.documentElement.lang || 'pt').slice(0, 2).toLowerCase() === 'en' ? 'en' : 'pt';
+var UCL_LOCALE = UCL_LANG === 'en' ? 'en-US' : 'pt-BR';
+var UCL_T = {
+  pt: {
+    sending: 'Enviando...', sent: '✓ Mensagem Enviada!', send: 'Enviar Mensagem',
+    fillRequired: 'Por favor, preencha os campos obrigatórios: Nome, E-mail e Mensagem.',
+    waIntro: 'Olá! Vim pelo site da Urban Code Labs.', waName: 'Nome', waEmail: 'E-mail', waProject: 'Projeto', waMessage: 'Mensagem',
+    newsRead: 'Ler', newsEmpty: 'Sem notícias no momento.', newsUpdated: 'Atualizado'
+  },
+  en: {
+    sending: 'Sending...', sent: '✓ Message sent!', send: 'Send Message',
+    fillRequired: 'Please fill in the required fields: Name, E-mail and Message.',
+    waIntro: 'Hi! I came from the Urban Code Labs website.', waName: 'Name', waEmail: 'E-mail', waProject: 'Project', waMessage: 'Message',
+    newsRead: 'Read', newsEmpty: 'No news at the moment.', newsUpdated: 'Updated'
+  }
+};
+var UCL_L = UCL_T[UCL_LANG];
+
 (function () {
   'use strict';
 
@@ -140,30 +159,30 @@
       var tipo     = form.tipo.value;
 
       if (!nome || !email || !mensagem) {
-        alert('Por favor, preencha os campos obrigatórios: Nome, E-mail e Mensagem.');
+        alert(UCL_L.fillRequired);
         return;
       }
 
       var btn = form.querySelector('button[type="submit"]');
-      btn.textContent = 'Enviando...';
+      btn.textContent = UCL_L.sending;
       btn.disabled = true;
       btn.style.opacity = '0.7';
 
       /* Compose WhatsApp message */
-      var msg = 'Olá! Vim pelo site da Urban Code Labs.\n\n'
-        + '*Nome:* ' + nome + '\n'
-        + '*E-mail:* ' + email + '\n'
-        + (tipo ? '*Projeto:* ' + form.tipo.options[form.tipo.selectedIndex].text + '\n' : '')
-        + '*Mensagem:* ' + mensagem;
+      var msg = UCL_L.waIntro + '\n\n'
+        + '*' + UCL_L.waName + ':* ' + nome + '\n'
+        + '*' + UCL_L.waEmail + ':* ' + email + '\n'
+        + (tipo ? '*' + UCL_L.waProject + ':* ' + form.tipo.options[form.tipo.selectedIndex].text + '\n' : '')
+        + '*' + UCL_L.waMessage + ':* ' + mensagem;
 
       setTimeout(function () {
-        btn.textContent = '✓ Mensagem Enviada!';
+        btn.textContent = UCL_L.sent;
         btn.style.background = 'var(--green)';
         btn.style.opacity = '1';
 
         setTimeout(function () {
           window.open('https://wa.me/5562981972706?text=' + encodeURIComponent(msg), '_blank');
-          btn.textContent = 'Enviar Mensagem';
+          btn.textContent = UCL_L.send;
           btn.disabled = false;
           btn.style.background = '';
           form.reset();
@@ -221,7 +240,7 @@
         var u = document.getElementById('newsUpdate');
         if (u) {
           var t = new Date(d.ts);
-          u.textContent = 'Atualizado ' + t.toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'});
+          u.textContent = UCL_L.newsUpdated + ' ' + t.toLocaleTimeString(UCL_LOCALE, {hour:'2-digit', minute:'2-digit'});
         }
       })
       .catch(function() {
@@ -248,7 +267,7 @@
 
     if (!items.length) {
       river.className = 'news-river is-loading';
-      river.innerHTML = '<div class="news-loading-state"><span>Sem notícias no momento.</span></div>';
+      river.innerHTML = '<div class="news-loading-state"><span>' + UCL_L.newsEmpty + '</span></div>';
       return;
     }
 
@@ -263,7 +282,7 @@
         '<div class="nc-line" style="background:'+item.color+'"></div>' +
         '<h3>'+esc(item.title)+'</h3>' +
         (item.desc && item.desc.length > 5 ? '<p>'+esc(item.desc)+'</p>' : '') +
-        '<span class="nc-cta" style="color:'+item.color+'">Ler ' +
+        '<span class="nc-cta" style="color:'+item.color+'">'+UCL_L.newsRead+' ' +
           '<svg width="10" height="10" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>' +
         '</span>' +
       '</a>';
