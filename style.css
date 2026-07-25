@@ -520,6 +520,8 @@ body {
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 28px 24px;
+  display: flex;
+  flex-direction: column;
   transition: background var(--t) var(--ease), border-color var(--t) var(--ease),
               transform var(--t) var(--ease), box-shadow var(--t) var(--ease);
 }
@@ -556,6 +558,8 @@ body {
   font-size: 1rem;
   font-weight: 600;
   color: var(--text);
+  line-height: 1.3;
+  min-height: 2.6em;   /* reserva 2 linhas p/ o texto começar sempre no mesmo ponto */
   margin-bottom: 10px;
   letter-spacing: -0.02em;
 }
@@ -563,12 +567,13 @@ body {
   font-size: 0.855rem;
   color: var(--text2);
   line-height: 1.62;
-  margin-bottom: 18px;
+  margin: auto 0;   /* texto centralizado no espaço entre título e tags */
 }
 .service-tags {
   display: flex;
   gap: 5px;
   flex-wrap: wrap;
+  padding-top: 18px;   /* tags sempre coladas no rodapé (empurradas pela margem auto do texto) */
 }
 
 /* ---- CARROSSEL INFINITO DOS CARDS (serviços + projetos) — ativado via JS ---- */
@@ -579,8 +584,8 @@ body {
   margin: -30px 0;
   cursor: grab;
   touch-action: pan-y;
-  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 100px, #000 calc(100% - 100px), transparent 100%);
-          mask-image: linear-gradient(90deg, transparent 0, #000 100px, #000 calc(100% - 100px), transparent 100%);
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 28px, #000 calc(100% - 28px), transparent 100%);
+          mask-image: linear-gradient(90deg, transparent 0, #000 28px, #000 calc(100% - 28px), transparent 100%);
 }
 .cards-marquee.grabbing { cursor: grabbing; }
 .cards-marquee.grabbing, .cards-marquee.grabbing * { user-select: none; }
@@ -752,6 +757,7 @@ body {
   color: var(--text);
   letter-spacing: -0.025em;
   line-height: 1.2;
+  min-height: 2.4em;   /* reserva 2 linhas p/ alinhar o conteúdo entre os cards */
   margin-bottom: 14px;
 }
 .project-card p {
