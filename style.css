@@ -600,8 +600,14 @@ body {
   gap: 20px;
   will-change: transform;
 }
-.services-grid.is-marquee > .service-card { flex: 0 0 min(86vw, 340px); }
-.projects-grid.is-marquee > .project-card { flex: 0 0 min(90vw, 480px); }
+/* mobile: 1 card por vez, largura exata do conteúdo (sem cap -> sem meio card) */
+.services-grid.is-marquee > .service-card,
+.projects-grid.is-marquee > .project-card { flex: 0 0 calc(100vw - 40px); }
+/* tablet/desktop: largura fixa (carrossel multi-card) */
+@media (min-width: 640px) {
+  .services-grid.is-marquee > .service-card { flex: 0 0 340px; }
+  .projects-grid.is-marquee > .project-card { flex: 0 0 480px; }
+}
 .service-tags li {
   font-size: 0.68rem;
   font-weight: 500;
