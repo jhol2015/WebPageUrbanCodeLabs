@@ -584,8 +584,6 @@ body {
   margin: -30px 0;
   cursor: grab;
   touch-action: pan-y;
-  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 28px, #000 calc(100% - 28px), transparent 100%);
-          mask-image: linear-gradient(90deg, transparent 0, #000 28px, #000 calc(100% - 28px), transparent 100%);
 }
 .cards-marquee.grabbing { cursor: grabbing; }
 .cards-marquee.grabbing, .cards-marquee.grabbing * { user-select: none; }
@@ -1118,13 +1116,11 @@ a.contact-item:hover { background: var(--surface); border-color: var(--border-hi
 .news-filter.active { color: #fff; background: var(--accent); border-color: var(--accent); }
 .news-ts { font-size: 0.68rem; color: var(--text3); white-space: nowrap; }
 
-/* wrapper full-bleed 100vw */
+/* wrapper contido na largura da página (alinhado ao resto do site) */
 .news-river-wrap {
   position: relative;
   overflow: hidden;
-  width: 100vw;
-  left: 50%;
-  transform: translateX(-50%);
+  width: 100%;
   cursor: default;
 }
 .news-river-wrap::before,
