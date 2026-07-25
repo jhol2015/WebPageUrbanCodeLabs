@@ -30,7 +30,7 @@ function decode(s) {
 }
 
 function safeUrl(u) {
-  // aceita apenas http/https — bloqueia javascript:, data:, etc.
+  // aceita apenas http/https - bloqueia javascript:, data:, etc.
   return /^https?:\/\//i.test(u || '') ? u : '';
 }
 
@@ -77,7 +77,7 @@ async function fetchRSS(feed) {
       if (items.length) return {source:feed.name,color:feed.color,items};
     } catch { continue; }
   }
-  return null; // retorna null — frontend oculta o filtro automaticamente
+  return null; // retorna null - frontend oculta o filtro automaticamente
 }
 
 async function fetchHN() {
@@ -101,7 +101,7 @@ async function fetchHN() {
 }
 
 export default async function handler() {
-  // Tudo em paralelo — nenhum feed bloqueia outro
+  // Tudo em paralelo - nenhum feed bloqueia outro
   const results = await Promise.allSettled([
     fetchHN(),
     ...FEEDS.map(fetchRSS),

@@ -1,4 +1,4 @@
-// Vercel Cron Job — roda todo dia às 07:00 BRT (10:00 UTC)
+// Vercel Cron Job - roda todo dia às 07:00 BRT (10:00 UTC)
 // Revalida o cache da Edge Function /api/news
 
 export const config = { runtime: 'edge' };
@@ -11,7 +11,7 @@ export default async function handler(req) {
 
   // Aceita: chamada de cron da Vercel OU autorização manual com secret.
   // Falha fechado: se não for cron e o secret não estiver configurado
-  // (ou não bater), rejeita — nunca deixa o endpoint aberto.
+  // (ou não bater), rejeita - nunca deixa o endpoint aberto.
   if (!isCron && (!cronSecret || authHeader !== 'Bearer ' + cronSecret)) {
     return new Response('Unauthorized', { status: 401 });
   }

@@ -1,0 +1,13 @@
+# Segredos e variáveis de ambiente - NUNCA versionar
+.env
+.env.*
+*.local
+
+# Dependências / build
+node_modules/
+.vercel/
+.DS_Store
+
+# Logs
+*.log
+npm-debug.log*

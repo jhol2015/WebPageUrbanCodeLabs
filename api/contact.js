@@ -23,8 +23,27 @@ function esc(s) {
   return String(s).replace(/[<>&]/g, function (c) { return { '<': '&lt;', '>': '&gt;', '&': '&amp;' }[c]; });
 }
 
+// só aceita envios originados do próprio site (apex/subdomínios + previews Vercel).
+// reduz abuso automatizado/flood que ignora o formulário do navegador.
+function fromSite(v) {
+  return /^https:\/\/([a-z0-9-]+\.)*urbancodelabs\.com\.br$/i.test(v)
+      || /^https:\/\/[a-z0-9-]+\.vercel\.app$/i.test(v);
+}
+
 export default async function handler(req) {
   if (req.method !== 'POST') return json({ ok: false, error: 'method' }, 405);
+
+  // um navegador real sempre envia Origin (POST fetch application/json) ou Referer.
+  const origin = req.headers.get('origin') || '';
+  let refOrigin = '';
+  try { refOrigin = req.headers.get('referer') ? new URL(req.headers.get('referer')).origin : ''; } catch (e) {}
+  if (origin) {
+    if (!fromSite(origin)) return json({ ok: false, error: 'origin' }, 403);
+  } else if (refOrigin) {
+    if (!fromSite(refOrigin)) return json({ ok: false, error: 'origin' }, 403);
+  } else {
+    return json({ ok: false, error: 'origin' }, 403);
+  }
 
   const apiKey = env('RESEND_API_KEY');
   const to = env('CONTACT_TO');
@@ -61,7 +80,7 @@ export default async function handler(req) {
         from: from,
         to: [to],
         reply_to: email,
-        subject: 'Contato pelo site — ' + nome,
+        subject: 'Contato pelo site - ' + nome,
         html: html,
       }),
     });

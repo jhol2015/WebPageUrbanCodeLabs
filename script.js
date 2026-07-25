@@ -1,5 +1,5 @@
 /* ============================================================
-   URBAN CODE LABS — script.js
+   URBAN CODE LABS - script.js
    ============================================================ */
 
 /* ---------- i18n (textos dinâmicos por idioma) ---------- */
@@ -200,7 +200,7 @@ var UCL_L = UCL_T[UCL_LANG];
   }
 
 })();
-/* ---- TECH NEWS — river infinito ---- */
+/* ---- TECH NEWS - river infinito ---- */
 (function () {
   var allFeeds = [], curSource = 'all';
   var river, wrap;
@@ -208,7 +208,7 @@ var UCL_L = UCL_T[UCL_LANG];
   var SPEED = 0.5; // px por frame (~30px/s a 60fps)
 
   function esc(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
-  // aceita apenas http/https — bloqueia javascript:, data: e outros esquemas perigosos no href
+  // aceita apenas http/https - bloqueia javascript:, data: e outros esquemas perigosos no href
   function safeUrl(u) { return /^https?:\/\//i.test(String(u||'')) ? u : '#'; }
   function rgba(h, a) {
     var r=parseInt(h.slice(1,3),16), g=parseInt(h.slice(3,5),16), b=parseInt(h.slice(5,7),16);
@@ -221,7 +221,7 @@ var UCL_L = UCL_T[UCL_LANG];
     var err = document.getElementById('newsErr');
     if (!river) return;
     river.className = 'news-river';
-    // skeleton — 8 cards fantasma
+    // skeleton - 8 cards fantasma
     var sk = '';
     for (var s = 0; s < 8; s++) {
       sk += '<div class="nc nc-skeleton"><div class="sk-badge"></div><div class="sk-line sk-title"></div><div class="sk-line sk-title sk-w80"></div><div class="sk-line sk-desc"></div><div class="sk-line sk-desc sk-w60"></div><div class="sk-line sk-desc sk-w70"></div></div><div class="nc-divider"></div>';
@@ -229,7 +229,7 @@ var UCL_L = UCL_T[UCL_LANG];
     river.innerHTML = sk;
     if (err) err.style.display = 'none';
 
-    // reutiliza fetch iniciado no <head> — sem esperar pelo JS
+    // reutiliza fetch iniciado no <head> - sem esperar pelo JS
     var _f = window.__newsFetch || fetch('/api/news');
     window.__newsFetch = null;
     _f.then(function(r) { if (!r.ok) throw 0; return r.json(); })
@@ -327,7 +327,7 @@ var UCL_L = UCL_T[UCL_LANG];
     wrap.addEventListener('mouseenter', function() { paused = true; });
     wrap.addEventListener('mouseleave', function() { paused = false; });
   }
-  // delay binding — wrap pode não existir ainda no DOMContentLoaded
+  // delay binding - wrap pode não existir ainda no DOMContentLoaded
   document.addEventListener('mouseover', function(e) {
     var w = document.getElementById('newsRiverWrap');
     if (!w) return;
@@ -338,7 +338,7 @@ var UCL_L = UCL_T[UCL_LANG];
     }
   }, { once: true });
 
-  // botão "Tentar novamente" (bind aqui — loadNews não é global; substitui onclick inline p/ CSP)
+  // botão "Tentar novamente" (bind aqui - loadNews não é global; substitui onclick inline p/ CSP)
   var retryBtn = document.getElementById('newsRetry');
   if (retryBtn) retryBtn.addEventListener('click', loadNews);
 

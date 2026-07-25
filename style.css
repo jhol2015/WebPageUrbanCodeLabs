@@ -1,5 +1,5 @@
 /* ============================================================
-   URBAN CODE LABS — style.css
+   URBAN CODE LABS - style.css
    Mobile-first, fully responsive, SSR-compatible
    ============================================================ */
 
@@ -12,7 +12,7 @@ a { color: inherit; text-decoration: none; }
 button { font-family: inherit; cursor: pointer; border: none; background: none; }
 input, select, textarea { font-family: inherit; }
 
-/* ---------- TOKENS — DARK (padrão) ---------- */
+/* ---------- TOKENS - DARK (padrão) ---------- */
 :root {
   --bg:           #080808;
   --bg2:          #0f0f0f;
@@ -43,7 +43,7 @@ input, select, textarea { font-family: inherit; }
   --nc-bg-hover:  #1a1a1a;
 }
 
-/* ---------- TOKENS — LIGHT ---------- */
+/* ---------- TOKENS - LIGHT ---------- */
 [data-theme="light"] {
   /* fundo escalonado para criar profundidade */
   --bg:           #eef0f4;
@@ -58,7 +58,7 @@ input, select, textarea { font-family: inherit; }
   --text:         #111214;
   --text2:        #44474e;
   --text3:        #6b7280;
-  /* accent azul profundo — contraste WCAG AA */
+  /* accent azul profundo - contraste WCAG AA */
   --accent:       #0055cc;
   --accent2:      #0066ff;
   --accent-glow:  rgba(0,85,204,0.16);
@@ -98,7 +98,7 @@ input, select, textarea { font-family: inherit; }
   }
 }
 
-/* transição suave ao trocar tema — só quando há mudança de tema ativa */
+/* transição suave ao trocar tema - só quando há mudança de tema ativa */
 html.theme-transitioning *,
 html.theme-transitioning *::before,
 html.theme-transitioning *::after {
@@ -249,7 +249,7 @@ body {
   object-fit: contain;
 }
 .footer .logo-img { height: 26px; }
-/* no tema claro os traços prateados da marca somem no branco — contorno sutil */
+/* no tema claro os traços prateados da marca somem no branco - contorno sutil */
 [data-theme="light"] .logo-img {
   filter: drop-shadow(0 0 0.6px rgba(15, 23, 42, 0.65))
           drop-shadow(0 1px 1.5px rgba(15, 23, 42, 0.30));
@@ -580,7 +580,7 @@ body {
   padding-top: 18px;
 }
 
-/* ---- CARROSSEL INFINITO DOS CARDS (serviços + projetos) — ativado via JS ---- */
+/* ---- CARROSSEL INFINITO DOS CARDS (serviços + projetos) - ativado via JS ---- */
 .cards-marquee {
   overflow: hidden;
   /* respiro vertical p/ a sombra/borda dos cards não ser cortada (compensado pela margem) */
@@ -1139,7 +1139,7 @@ a.contact-item:hover { background: var(--surface); border-color: var(--border-hi
   border-radius: 4px;
 }
 /* ============================================================
-   TECH NEWS — river infinito
+   TECH NEWS - river infinito
    ============================================================ */
 .news-bar {
   display: flex;
@@ -1187,7 +1187,7 @@ a.contact-item:hover { background: var(--surface); border-color: var(--border-hi
 .news-river-wrap::before { left: 0;  background: linear-gradient(to right, var(--bg2) 10%, transparent); }
 .news-river-wrap::after  { right: 0; background: linear-gradient(to left,  var(--bg2) 10%, transparent); }
 
-/* container único — borda superior e inferior */
+/* container único - borda superior e inferior */
 .news-river-container {
   border-top: 2px solid rgba(79,158,248,0.5);
   border-bottom: 1px solid var(--border);
@@ -1228,7 +1228,7 @@ a.contact-item:hover { background: var(--surface); border-color: var(--border-hi
   box-shadow: 1px 0 2px rgba(0,0,0,0.4), -1px 0 2px rgba(0,0,0,0.2);
 }
 
-/* card — altura fixa, grid de 3 linhas */
+/* card - altura fixa, grid de 3 linhas */
 .nc {
   flex-shrink: 0;
   width: 260px;
@@ -1272,7 +1272,7 @@ a.contact-item:hover { background: var(--surface); border-color: var(--border-hi
   white-space: nowrap;
 }
 
-/* linha 2: conteúdo — ancora no topo, não empurra */
+/* linha 2: conteúdo - ancora no topo, não empurra */
 .nc-body {
   overflow: hidden;
   min-height: 0;
@@ -1349,7 +1349,7 @@ a.contact-item:hover { background: var(--surface); border-color: var(--border-hi
   .news-river { animation: none !important; }
 }
 
-/* filtros BR/Global — separadores visuais */
+/* filtros BR/Global - separadores visuais */
 .news-filter-br,
 .news-filter-sep {
   margin-left: 6px;
@@ -1383,7 +1383,7 @@ a.contact-item:hover { background: var(--surface); border-color: var(--border-hi
 .sk-w70    { width: 70%; }
 
 /* ============================================================
-   TEMA — TOGGLE & ACESSIBILIDADE
+   TEMA - TOGGLE & ACESSIBILIDADE
    ============================================================ */
 
 /* skip link */
@@ -1453,7 +1453,7 @@ a.contact-item:hover { background: var(--surface); border-color: var(--border-hi
 :root:not([data-theme]) .icon-moon { display: none; }
 
 /* ============================================================
-   LIGHT MODE — overrides completos
+   LIGHT MODE - overrides completos
    Base branca, elevação via sombra, separação por fundo
    ============================================================ */
 
@@ -1470,7 +1470,7 @@ a.contact-item:hover { background: var(--surface); border-color: var(--border-hi
 [data-theme="light"] .hamburger span { background: #0f172a; }
 [data-theme="light"] .theme-toggle { background: #f0f3f9; border-color: rgba(15,23,42,0.12); color: #475569; }
 
-/* hero — fundo branco puro, orbs azuis suaves */
+/* hero - fundo branco puro, orbs azuis suaves */
 [data-theme="light"] .hero { background: #ffffff; }
 [data-theme="light"] .orb1 { background: radial-gradient(circle, rgba(29,111,206,0.09) 0%, transparent 70%); }
 [data-theme="light"] .orb2 { background: radial-gradient(circle, rgba(29,111,206,0.06) 0%, transparent 70%); }
@@ -1494,7 +1494,7 @@ a.contact-item:hover { background: var(--surface); border-color: var(--border-hi
 [data-theme="light"] .btn-primary { background: #1d6fce; }
 [data-theme="light"] .btn-primary:hover { background: #2563eb; box-shadow: 0 8px 24px rgba(29,111,206,0.25); }
 
-/* ticker — fundo azul slate, texto legível */
+/* ticker - fundo azul slate, texto legível */
 [data-theme="light"] .ticker-wrap {
   background: #f0f3f9;
   border-top-color: rgba(15,23,42,0.09);
@@ -1503,13 +1503,13 @@ a.contact-item:hover { background: var(--surface); border-color: var(--border-hi
 [data-theme="light"] .ticker span { color: #475569; }
 [data-theme="light"] .ticker .dot  { color: #1d6fce; }
 
-/* seções alternadas — branco / azul muito suave */
+/* seções alternadas - branco / azul muito suave */
 [data-theme="light"] .section { background: #ffffff; }
 [data-theme="light"] .section-dark { background: #f6f8fc; }
 [data-theme="light"] .section-tag { color: #1d6fce; }
 [data-theme="light"] .section-title { color: #0f172a; }
 
-/* serviços — grid com separador visível */
+/* serviços - grid com separador visível */
 [data-theme="light"] .services-grid {
   background: rgba(15,23,42,0.07);
   border-color: rgba(15,23,42,0.07);
@@ -1675,13 +1675,13 @@ a.contact-item:hover { background: var(--surface); border-color: var(--border-hi
 [data-theme="light"] .news-loading-state { color: #94a3b8; }
 [data-theme="light"] .news-spin { border-color: rgba(15,23,42,0.1); border-top-color: #1d6fce; }
 
-/* acessibilidade — focus ring global */
+/* acessibilidade - focus ring global */
 :focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
   border-radius: 4px;
 }
-/* remover outline padrão do mouse — manter para teclado */
+/* remover outline padrão do mouse - manter para teclado */
 :focus:not(:focus-visible) { outline: none; }
 
 /* reduzir movimento */
@@ -1701,16 +1701,16 @@ a.contact-item:hover { background: var(--surface); border-color: var(--border-hi
   .service-icon { border: 1px solid ButtonText; }
 }
 
-/* badges de fontes — maior contraste no light mode */
+/* badges de fontes - maior contraste no light mode */
 [data-theme="light"] .nc-badge {
   filter: brightness(0.7) saturate(1.4);
 }
 
 /* ============================================================
-   LIGHT MODE — service cards com contraste real
+   LIGHT MODE - service cards com contraste real
    ============================================================ */
 
-/* seção de serviços: fundo cinza médio — contraste sem ruptura */
+/* seção de serviços: fundo cinza médio - contraste sem ruptura */
 [data-theme="light"] #servicos {
   background: #e8ecf2;
 }
