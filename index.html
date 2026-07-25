@@ -91,7 +91,7 @@
     })();
   </script>
   <link rel="prefetch" href="/api/news" as="fetch" crossorigin="anonymous" />
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css?v=2" />
   <!-- Inicia fetch da API de notícias o mais cedo possível -->
   <!-- ⚠ CSP: autorizado por hash SHA-256 no vercel.json — recalcule o hash se editar. -->
   <script>window.__newsFetch = fetch('/api/news');</script>
@@ -684,6 +684,6 @@
     <span class="wpp-tooltip">Fale no WhatsApp</span>
   </a>
 
-  <script src="script.js" defer></script>
+  <script src="script.js?v=2" defer></script>
 </body>
 </html>
