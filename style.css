@@ -423,6 +423,9 @@ body {
   word-break: keep-all;
   overflow-wrap: normal;
 }
+@media (max-width: 520px) {
+  .hero-title { font-size: clamp(1.9rem, 8.5vw, 2.7rem); }
+}
 .hero-title em {
   font-style: normal;
   background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
