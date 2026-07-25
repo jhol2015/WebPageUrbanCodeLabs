@@ -954,6 +954,41 @@ a.contact-item:hover { background: var(--surface); border-color: var(--border-hi
 }
 @media (min-width: 640px) { .contact-form-card { padding: 36px 32px; } }
 
+/* mensagem de status do formulário (sucesso / erro) */
+.form-status {
+  display: none;
+  margin-top: 14px;
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+.form-status.show { display: block; }
+.form-status.is-success {
+  background: rgba(52, 211, 153, 0.12);
+  border-color: rgba(52, 211, 153, 0.38);
+  color: #6ee7b7;
+}
+.form-status.is-error {
+  background: rgba(248, 113, 113, 0.10);
+  border-color: rgba(248, 113, 113, 0.38);
+  color: #fca5a5;
+}
+.form-status-wa {
+  color: inherit;
+  font-weight: 600;
+  text-decoration: underline;
+  white-space: nowrap;
+}
+.form-status-wa:hover { opacity: 0.85; }
+[data-theme="light"] .form-status.is-success {
+  background: #e7f8ef; border-color: #b7e6c9; color: #15803d;
+}
+[data-theme="light"] .form-status.is-error {
+  background: #fdeaea; border-color: #f3b9b9; color: #b91c1c;
+}
+
 .contact-form-card h3 {
   font-family: var(--font-head);
   font-size: 1.25rem;

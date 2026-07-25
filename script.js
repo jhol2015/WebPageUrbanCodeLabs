@@ -7,14 +7,24 @@ var UCL_LANG = (document.documentElement.lang || 'pt').slice(0, 2).toLowerCase()
 var UCL_LOCALE = UCL_LANG === 'en' ? 'en-US' : 'pt-BR';
 var UCL_T = {
   pt: {
-    sending: 'Enviando...', sent: '✓ Mensagem Enviada!', send: 'Enviar Mensagem', errorSend: 'Erro ao enviar. Tente novamente.',
-    fillRequired: 'Por favor, preencha os campos obrigatórios: Nome, E-mail e Mensagem.',
+    sending: 'Enviando...', sent: '✓ Mensagem Enviada!', send: 'Enviar Mensagem', errorSend: 'Não foi possível enviar. Tente novamente.',
+    fillRequired: 'Preencha os campos obrigatórios: Nome, E-mail e Mensagem.',
+    sentMsg: 'Recebemos sua mensagem. Retornaremos em breve.',
+    errUnavailable: 'Nosso servidor de e-mail está indisponível no momento. Tente novamente em instantes ou fale com a gente pelo WhatsApp.',
+    errRate: 'Você enviou muitas mensagens em pouco tempo. Aguarde alguns minutos e tente de novo.',
+    errEmail: 'Confira o e-mail informado.',
+    waCta: 'Falar pelo WhatsApp',
     waIntro: 'Olá! Vim pelo site da Urban Code Labs.', waName: 'Nome', waEmail: 'E-mail', waProject: 'Projeto', waMessage: 'Mensagem',
     newsRead: 'Ler', newsEmpty: 'Sem notícias no momento.', newsUpdated: 'Atualizado'
   },
   en: {
-    sending: 'Sending...', sent: '✓ Message sent!', send: 'Send Message', errorSend: 'Failed to send. Please try again.',
+    sending: 'Sending...', sent: '✓ Message sent!', send: 'Send Message', errorSend: 'Could not send. Please try again.',
     fillRequired: 'Please fill in the required fields: Name, E-mail and Message.',
+    sentMsg: 'We got your message. We will get back to you soon.',
+    errUnavailable: 'Our e-mail server is unavailable right now. Try again in a moment or reach us on WhatsApp.',
+    errRate: 'You have sent too many messages in a short time. Wait a few minutes and try again.',
+    errEmail: 'Please check the e-mail address.',
+    waCta: 'Chat on WhatsApp',
     waIntro: 'Hi! I came from the Urban Code Labs website.', waName: 'Name', waEmail: 'E-mail', waProject: 'Project', waMessage: 'Message',
     newsRead: 'Read', newsEmpty: 'No news at the moment.', newsUpdated: 'Updated'
   }
@@ -147,20 +157,57 @@ var UCL_L = UCL_T[UCL_LANG];
     });
   }, { passive: true });
 
-  /* ---------- CONTACT FORM (envia e-mail via /api/contact; fallback WhatsApp) ---------- */
+  /* ---------- CONTACT FORM (envia e-mail via /api/contact; mensagens de status inline) ---------- */
   var form = document.getElementById('contactForm');
   if (form) {
+    // elemento de status (criado uma vez, reaproveitado; anunciado por leitores de tela)
+    function statusEl() {
+      var el = form.querySelector('.form-status');
+      if (!el) {
+        el = document.createElement('div');
+        el.className = 'form-status';
+        el.setAttribute('role', 'status');
+        el.setAttribute('aria-live', 'polite');
+        form.appendChild(el);
+      }
+      return el;
+    }
+    function clearStatus() {
+      var el = form.querySelector('.form-status');
+      if (el) { el.className = 'form-status'; el.textContent = ''; }
+    }
+    // usa textContent/createElement (nunca innerHTML) -> sem risco de injeção
+    function showStatus(kind, text, waHref) {
+      var el = statusEl();
+      el.className = 'form-status show is-' + kind;
+      el.textContent = '';
+      var span = document.createElement('span');
+      span.textContent = text;
+      el.appendChild(span);
+      if (waHref) {
+        el.appendChild(document.createTextNode(' '));
+        var a = document.createElement('a');
+        a.href = waHref;
+        a.target = '_blank';
+        a.rel = 'noopener noreferrer';
+        a.className = 'form-status-wa';
+        a.textContent = UCL_L.waCta;
+        el.appendChild(a);
+      }
+    }
+
     form.addEventListener('submit', function (e) {
       e.preventDefault();
 
       var nome     = form.nome.value.trim();
       var email    = form.email.value.trim();
       var mensagem = form.mensagem.value.trim();
-      var tipoText = form.tipo.value ? form.tipo.options[form.tipo.selectedIndex].text : '';
+      var tipoText = form.tipo && form.tipo.value ? form.tipo.options[form.tipo.selectedIndex].text : '';
       var website  = form.website ? form.website.value : ''; // honeypot
 
+      clearStatus();
       if (!nome || !email || !mensagem) {
-        alert(UCL_L.fillRequired);
+        showStatus('error', UCL_L.fillRequired);
         return;
       }
 
@@ -169,19 +216,16 @@ var UCL_L = UCL_T[UCL_LANG];
       btn.disabled = true;
       btn.style.opacity = '0.7';
 
-      function done() {
-        btn.textContent = UCL_L.sent; btn.style.background = 'var(--green)'; btn.style.opacity = '1';
-        form.reset();
-        setTimeout(function () { btn.textContent = UCL_L.send; btn.disabled = false; btn.style.background = ''; }, 2600);
+      function resetBtn() {
+        btn.disabled = false; btn.style.opacity = ''; btn.style.background = ''; btn.textContent = UCL_L.send;
       }
-      function whatsappFallback() {
+      function waLink() {
         var msg = UCL_L.waIntro + '\n\n'
           + '*' + UCL_L.waName + ':* ' + nome + '\n'
           + '*' + UCL_L.waEmail + ':* ' + email + '\n'
           + (tipoText ? '*' + UCL_L.waProject + ':* ' + tipoText + '\n' : '')
           + '*' + UCL_L.waMessage + ':* ' + mensagem;
-        window.open('https://wa.me/5562981972706?text=' + encodeURIComponent(msg), '_blank');
-        done();
+        return 'https://wa.me/5562981972706?text=' + encodeURIComponent(msg);
       }
 
       fetch('/api/contact', {
@@ -189,12 +233,34 @@ var UCL_L = UCL_T[UCL_LANG];
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ nome: nome, email: email, tipo: tipoText, mensagem: mensagem, website: website })
       }).then(function (r) {
-        return r.json().then(function (d) { return { ok: r.ok, d: d }; }).catch(function () { return { ok: r.ok, d: {} }; });
+        return r.json().then(function (d) { return { ok: r.ok, status: r.status, d: d }; })
+                       .catch(function () { return { ok: r.ok, status: r.status, d: {} }; });
       }).then(function (res) {
-        if (res.ok && res.d && res.d.ok) done();  // e-mail enviado
-        else whatsappFallback();                  // não configurado / falhou -> WhatsApp
+        if (res.ok && res.d && res.d.ok) {
+          // sucesso real
+          btn.textContent = UCL_L.sent; btn.style.background = 'var(--green)'; btn.style.opacity = '1';
+          showStatus('success', UCL_L.sentMsg);
+          form.reset();
+          setTimeout(resetBtn, 4000);
+          return;
+        }
+        // falha -> reabilita o botão e mostra a mensagem certa
+        resetBtn();
+        var err = res.d && res.d.error;
+        if (res.status === 429 || err === 'rate') {
+          showStatus('error', UCL_L.errRate, waLink());
+        } else if (err === 'email') {
+          showStatus('error', UCL_L.errEmail);
+        } else if (err === 'required') {
+          showStatus('error', UCL_L.fillRequired);
+        } else {
+          // 502/503 (indisponível), 403, ou resposta inesperada
+          showStatus('error', UCL_L.errUnavailable, waLink());
+        }
       }).catch(function () {
-        whatsappFallback();                        // erro de rede -> WhatsApp
+        // erro de rede
+        resetBtn();
+        showStatus('error', UCL_L.errUnavailable, waLink());
       });
     });
   }
