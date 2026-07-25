@@ -567,13 +567,14 @@ body {
   font-size: 0.855rem;
   color: var(--text2);
   line-height: 1.62;
-  margin: auto 0;   /* texto centralizado no espaço entre título e tags */
+  margin: 0;   /* texto alinhado ao topo (logo após o título) */
 }
 .service-tags {
   display: flex;
   gap: 5px;
   flex-wrap: wrap;
-  padding-top: 18px;   /* tags sempre coladas no rodapé (empurradas pela margem auto do texto) */
+  margin-top: auto;   /* tags sempre no rodapé, alinhadas entre os cards */
+  padding-top: 18px;
 }
 
 /* ---- CARROSSEL INFINITO DOS CARDS (serviços + projetos) — ativado via JS ---- */
@@ -706,7 +707,7 @@ body {
   flex-direction: column;
   transition: border-color var(--t), transform var(--t), box-shadow var(--t);
 }
-@media (min-width: 640px) { .project-card { padding: 36px 32px; } }
+@media (min-width: 640px) { .project-card { padding: 28px 32px; } }
 
 .project-card:hover {
   border-color: var(--border-hi);
@@ -734,7 +735,7 @@ body {
   align-items: flex-start;
   justify-content: space-between;
   gap: 10px;
-  margin-bottom: 14px;
+  margin-bottom: 10px;
   flex-wrap: wrap;
 }
 .project-tag {
@@ -756,22 +757,21 @@ body {
   letter-spacing: -0.025em;
   line-height: 1.2;
   min-height: 2.4em;   /* reserva 2 linhas p/ alinhar o conteúdo entre os cards */
-  margin-bottom: 14px;
+  margin-bottom: 10px;
 }
 .project-card p {
   font-size: 0.875rem;
   color: var(--text2);
-  line-height: 1.7;
-  min-height: 10.2em;   /* reserva ~6 linhas p/ alinhar os destaques entre os cards */
-  margin-bottom: 22px;
+  line-height: 1.65;
+  margin-bottom: 16px;
 }
 .project-highlights {
   display: flex;
   flex-direction: column;
-  gap: 9px;
-  padding: 14px 16px;
+  gap: 8px;
+  padding: 12px 14px;
   border-radius: var(--radius-sm);
-  margin-bottom: 22px;
+  margin-bottom: 16px;
 }
 .project-blue   .project-highlights { background: rgba(79,158,248,0.05); border: 1px solid rgba(79,158,248,0.12); }
 .project-amber  .project-highlights { background: rgba(234,163,27,0.05); border: 1px solid rgba(234,163,27,0.12); }
@@ -1710,7 +1710,7 @@ a.contact-item:hover { background: var(--surface); border-color: var(--border-hi
   font-size: 0.875rem;
   color: #64748b;
   line-height: 1.65;
-  margin: auto 0;
+  margin: 0;
 }
 [data-theme="light"] .service-tags li {
   font-size: 0.68rem;
