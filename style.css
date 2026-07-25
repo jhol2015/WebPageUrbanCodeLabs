@@ -380,17 +380,6 @@ body {
   0%, 100% { transform: translate(0,0); }
   50%       { transform: translate(18px,-18px); }
 }
-.grid-overlay {
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(255,255,255,0.022) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.022) 1px, transparent 1px);
-  background-size: 56px 56px;
-  mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, black 20%, transparent 100%);
-  -webkit-mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, black 20%, transparent 100%);
-}
-
 /* hero content */
 .hero-content { position: relative; z-index: 1; max-width: 660px; }
 
@@ -1385,11 +1374,6 @@ a.contact-item:hover { background: var(--surface); border-color: var(--border-hi
 
 /* hero — fundo branco puro, orbs azuis suaves */
 [data-theme="light"] .hero { background: #ffffff; }
-[data-theme="light"] .hero-bg .grid-overlay {
-  background-image:
-    linear-gradient(rgba(15,23,42,0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(15,23,42,0.04) 1px, transparent 1px);
-}
 [data-theme="light"] .orb1 { background: radial-gradient(circle, rgba(29,111,206,0.09) 0%, transparent 70%); }
 [data-theme="light"] .orb2 { background: radial-gradient(circle, rgba(29,111,206,0.06) 0%, transparent 70%); }
 [data-theme="light"] .orb3 { background: radial-gradient(circle, rgba(29,111,206,0.04) 0%, transparent 70%); }
