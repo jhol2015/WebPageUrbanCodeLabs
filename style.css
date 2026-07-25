@@ -762,6 +762,7 @@ body {
   font-size: 0.875rem;
   color: var(--text2);
   line-height: 1.7;
+  min-height: 10.2em;   /* reserva ~6 linhas p/ alinhar os destaques entre os cards */
   margin-bottom: 22px;
 }
 .project-highlights {
@@ -1640,7 +1641,6 @@ a.contact-item:hover { background: var(--surface); border-color: var(--border-hi
 [data-theme="light"] #servicos .section-title  { color: #0f172a; }
 
 [data-theme="light"] .services-grid {
-  display: grid;
   gap: 16px;
   background: transparent;
   border: none;
@@ -1710,7 +1710,7 @@ a.contact-item:hover { background: var(--surface); border-color: var(--border-hi
   font-size: 0.875rem;
   color: #64748b;
   line-height: 1.65;
-  margin-bottom: 20px;
+  margin: auto 0;
 }
 [data-theme="light"] .service-tags li {
   font-size: 0.68rem;
