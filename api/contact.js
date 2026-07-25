@@ -14,7 +14,9 @@ function json(body, status) {
 }
 
 function env(name) {
-  return (typeof process !== 'undefined' && process.env && process.env[name]) || '';
+  try { if (typeof process !== 'undefined' && process.env && process.env[name]) return process.env[name]; } catch (e) {}
+  try { if (typeof globalThis !== 'undefined' && globalThis[name]) return globalThis[name]; } catch (e) {}
+  return '';
 }
 
 function esc(s) {
@@ -27,7 +29,7 @@ export default async function handler(req) {
   const apiKey = env('RESEND_API_KEY');
   const to = env('CONTACT_TO');
   const from = env('CONTACT_FROM') || 'Urban Code Labs <onboarding@resend.dev>';
-  if (!apiKey || !to) return json({ ok: false, error: 'not_configured' }, 503);
+  if (!apiKey || !to) return json({ ok: false, error: 'not_configured', hasKey: !!apiKey, hasTo: !!to }, 503);
 
   let data;
   try { data = await req.json(); } catch (e) { return json({ ok: false, error: 'invalid' }, 400); }
