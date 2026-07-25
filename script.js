@@ -327,44 +327,52 @@
   loadNews();
 })();
 
-/* ---- CARROSSEL INFINITO DAS TAGS (serviços + projetos) ---- */
+/* ---- CARROSSEL INFINITO DOS CARDS (serviços + projetos) ---- */
 (function () {
   if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  var SPEED = 22; // px por segundo
+  var SPEED = 42; // px por segundo
 
-  function build(ul) {
-    if (!ul || !ul.children.length || ul.parentNode.classList.contains('tag-marquee')) return;
-    var originals = Array.prototype.slice.call(ul.children);
+  function build(grid) {
+    if (!grid || !grid.children.length) return;
+    if (grid.parentNode && grid.parentNode.classList.contains('cards-marquee')) return;
+
+    // garante todos os cards visíveis (sem depender do reveal por scroll)
+    var originals = Array.prototype.slice.call(grid.children);
+    originals.forEach(function (card) { card.classList.remove('reveal'); card.classList.add('visible'); });
 
     // wrapper com overflow + máscara (fade nas bordas)
     var wrap = document.createElement('div');
-    wrap.className = 'tag-marquee';
-    ul.parentNode.insertBefore(wrap, ul);
-    wrap.appendChild(ul);
+    wrap.className = 'cards-marquee';
+    grid.parentNode.insertBefore(wrap, grid);
+    wrap.appendChild(grid);
+    grid.classList.add('is-marquee');
 
-    var cs = getComputedStyle(ul);
+    var cs = getComputedStyle(grid);
     var gap = parseFloat(cs.columnGap || cs.gap) || 0;
-    var setW = ul.scrollWidth;              // largura de 1 conjunto (antes de clonar)
+    var setW = grid.scrollWidth;            // largura de 1 conjunto (antes de clonar)
     var period = setW + gap;                // 1 conjunto + o gap até o próximo
-    var containerW = wrap.clientWidth || 260;
+    var containerW = wrap.clientWidth || 1000;
 
-    // clona conjuntos até haver conteúdo suficiente p/ preencher após deslocar 1 período
+    // clona o conjunto até haver conteúdo suficiente p/ preencher após deslocar 1 período
     var guard = 0;
-    while (ul.scrollWidth < containerW + period + 40 && guard < 12) {
-      originals.forEach(function (li) {
-        var c = li.cloneNode(true);
+    while (grid.scrollWidth < containerW + period + 60 && guard < 8) {
+      originals.forEach(function (card) {
+        var c = card.cloneNode(true);
         c.setAttribute('aria-hidden', 'true');
-        ul.appendChild(c);
+        grid.appendChild(c);
       });
       guard++;
     }
 
-    ul.style.setProperty('--shift', period + 'px');
-    ul.style.setProperty('--dur', Math.max(6, period / SPEED) + 's');
+    grid.style.setProperty('--shift', period + 'px');
+    grid.style.setProperty('--dur', Math.max(20, period / SPEED) + 's');
   }
 
   function init() {
-    document.querySelectorAll('.service-tags, .project-stack').forEach(build);
+    var s = document.querySelector('#servicos .services-grid');
+    var p = document.querySelector('#projetos .projects-grid');
+    if (s) build(s);
+    if (p) build(p);
   }
   // mede após as webfonts carregarem (evita emenda por mudança de largura)
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(init);

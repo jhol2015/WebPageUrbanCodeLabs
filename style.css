@@ -571,29 +571,29 @@ body {
   flex-wrap: wrap;
 }
 
-/* ---- CARROSSEL INFINITO DAS TAGS (serviços + projetos) — ativado via JS ---- */
-.tag-marquee {
+/* ---- CARROSSEL INFINITO DOS CARDS (serviços + projetos) — ativado via JS ---- */
+.cards-marquee {
   overflow: hidden;
-  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 16px, #000 calc(100% - 16px), transparent 100%);
-          mask-image: linear-gradient(90deg, transparent 0, #000 16px, #000 calc(100% - 16px), transparent 100%);
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 44px, #000 calc(100% - 44px), transparent 100%);
+          mask-image: linear-gradient(90deg, transparent 0, #000 44px, #000 calc(100% - 44px), transparent 100%);
 }
-.tag-marquee:has(> .project-stack) { margin-top: auto; }
-.tag-marquee > .service-tags,
-.tag-marquee > .project-stack {
+.services-grid.is-marquee,
+.projects-grid.is-marquee {
+  display: flex;
   flex-wrap: nowrap;
+  align-items: stretch;
   width: max-content;
-  margin-top: 0;
-  animation: tag-scroll var(--dur, 20s) linear infinite;
+  gap: 20px;
+  animation: cards-scroll var(--dur, 40s) linear infinite;
   will-change: transform;
 }
-.tag-marquee > .service-tags > li,
-.tag-marquee > .project-stack > li { flex: 0 0 auto; white-space: nowrap; }
-.tag-marquee:hover > .service-tags,
-.tag-marquee:hover > .project-stack { animation-play-state: paused; }
-@keyframes tag-scroll { to { transform: translateX(calc(-1 * var(--shift, 50%))); } }
+.services-grid.is-marquee > .service-card { flex: 0 0 min(86vw, 340px); }
+.projects-grid.is-marquee > .project-card { flex: 0 0 min(90vw, 480px); }
+.cards-marquee:hover .is-marquee { animation-play-state: paused; }
+@keyframes cards-scroll { to { transform: translateX(calc(-1 * var(--shift, 50%))); } }
 @media (prefers-reduced-motion: reduce) {
-  .tag-marquee > .service-tags,
-  .tag-marquee > .project-stack { animation: none; transform: none; }
+  .services-grid.is-marquee,
+  .projects-grid.is-marquee { animation: none; }
 }
 .service-tags li {
   font-size: 0.68rem;
