@@ -2,6 +2,15 @@
   "cleanUrls": true,
   "trailingSlash": false,
 
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "www.urbancodelabs.com.br" }],
+      "destination": "https://urbancodelabs.com.br/:path*",
+      "permanent": true
+    }
+  ],
+
   "crons": [
     {
       "path": "/api/cron-news",
