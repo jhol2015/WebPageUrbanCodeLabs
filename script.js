@@ -456,3 +456,38 @@ var UCL_L = UCL_T[UCL_LANG];
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(init);
   else init();
 })();
+
+/* ---- BANNER DE IDIOMA POR GEOLOCALIZAÇÃO ----
+   Fora do BR na página PT -> oferece inglês; BR na /en -> oferece português. */
+(function () {
+  var KEY = 'ucl-lang-banner';
+  try { if (localStorage.getItem(KEY)) return; } catch (e) {}
+  var lang = (document.documentElement.lang || 'pt').slice(0, 2).toLowerCase() === 'en' ? 'en' : 'pt';
+
+  fetch('/api/geo').then(function (r) { return r.json(); }).then(function (d) {
+    var country = ((d && d.country) || '').toUpperCase();
+    if (!country) return;
+    var suggest = null;
+    if (lang === 'pt' && country !== 'BR') suggest = 'en';
+    else if (lang === 'en' && country === 'BR') suggest = 'pt';
+    if (suggest) show(suggest);
+  }).catch(function () {});
+
+  function show(target) {
+    var c = target === 'en'
+      ? { msg: 'This site is also available in English.', cta: 'View in English', href: '/en', close: 'Close' }
+      : { msg: 'Este site também está disponível em português.', cta: 'Ver em Português', href: '/', close: 'Fechar' };
+    var bar = document.createElement('div');
+    bar.className = 'lang-banner';
+    var msg = document.createElement('span'); msg.className = 'lang-banner-msg'; msg.textContent = c.msg;
+    var cta = document.createElement('a'); cta.className = 'lang-banner-cta'; cta.href = c.href; cta.textContent = c.cta;
+    var cls = document.createElement('button'); cls.className = 'lang-banner-close'; cls.type = 'button';
+    cls.setAttribute('aria-label', c.close); cls.innerHTML = '&times;';
+    bar.appendChild(msg); bar.appendChild(cta); bar.appendChild(cls);
+    document.body.appendChild(bar);
+    requestAnimationFrame(function () { bar.classList.add('show'); });
+    function dismiss() { try { localStorage.setItem(KEY, '1'); } catch (e) {} bar.classList.remove('show'); setTimeout(function () { if (bar.parentNode) bar.remove(); }, 300); }
+    cls.addEventListener('click', dismiss);
+    cta.addEventListener('click', function () { try { localStorage.setItem(KEY, '1'); } catch (e) {} });
+  }
+})();

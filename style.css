@@ -1047,6 +1047,48 @@ a.contact-item:hover { background: var(--surface); border-color: var(--border-hi
 /* ============================================================
    WHATSAPP FLOAT
    ============================================================ */
+/* ---- BANNER DE IDIOMA (geolocalização) ---- */
+.lang-banner {
+  position: fixed;
+  left: 20px;
+  bottom: 24px;
+  z-index: 98;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  max-width: min(90vw, 400px);
+  padding: 12px 14px 12px 18px;
+  border-radius: 14px;
+  background: var(--surface);
+  border: 1px solid var(--border-hi);
+  box-shadow: 0 14px 44px rgba(0,0,0,0.45);
+  transform: translateY(20px);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform .32s var(--ease), opacity .32s var(--ease);
+}
+.lang-banner.show { transform: translateY(0); opacity: 1; pointer-events: auto; }
+.lang-banner-msg { font-size: 0.85rem; color: var(--text2); line-height: 1.4; }
+.lang-banner-cta {
+  flex-shrink: 0;
+  font-size: 0.82rem; font-weight: 700;
+  color: var(--accent);
+  text-decoration: none;
+  white-space: nowrap;
+}
+.lang-banner-cta:hover { text-decoration: underline; }
+.lang-banner-close {
+  flex-shrink: 0;
+  background: none; border: none; color: var(--text3);
+  font-size: 1.4rem; line-height: 1; cursor: pointer; padding: 0 2px;
+}
+.lang-banner-close:hover { color: var(--text); }
+[data-theme="light"] .lang-banner { background: #fff; border-color: rgba(15,23,42,0.12); box-shadow: 0 14px 44px rgba(15,23,42,0.16); }
+@media (max-width: 560px) {
+  .lang-banner { left: 12px; right: 88px; bottom: 18px; max-width: none; gap: 10px; padding: 10px 12px 10px 14px; }
+  .lang-banner-msg { font-size: 0.8rem; }
+}
+
 .whatsapp-float {
   position: fixed;
   bottom: 24px;
